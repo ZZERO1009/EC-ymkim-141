@@ -1,19 +1,15 @@
-# LAB: Smart mini-fan with STM32-duino
+# LAB: GPIO Digital InOut 7-segment
 
-**Date: 2023.9.9.**
+**Date: 2023.10.4.**
 
 **Author/Partner:** 21900141 Youngmin Kim
 
 **Github**: <https://github.com/ZZERO1009/LAB1_mini_fan/blob/aa66b9efee4b68b8aaafcd5549caab45be376240/EC_LAB_miniFan_report_21900141_Youngmin_Kim.md>
 
-**Demo Video**: <https://youtu.be/k742ZgKgNyA>
 
 ## Introduction
 
-In this Lab, we will utilize the Arduino IDE to create a basic embedded digital application program. 
-
-Subsequently, we will proceed to implement and verify the functionality as part of our experimental report.
-
+n this lab, I createD a simple program to control a 7-segment display to show a decimal number (0~9) that increases by pressing a push-button.
 ## Requirement
 
 ### Hardware 
@@ -21,44 +17,27 @@ Subsequently, we will proceed to implement and verify the functionality as part 
 * MCU
   * NUCLEO-F401RE
 
-* Sensor:
-  * Ultrasonic distance sensor(HC-SR04) x1
 
-* Actuator/Display
-  * LED
-  * DC motor (RK-280RA)
-  * pc screen
+* Actuator/Sensor/Others:
+  * 7-segment display(5101ASR)
+  * Array resistor (330 ohm)
+  * decoder chip(74LS47)
+  * breadboard
 
 ### Software
-  * Arduino IDE
-  * Tera Term
+ * Keil uVision, CMSIS, EC_HAL library
 
-## Problem
+## Problem 1 :
 
 ### Procedure
 
-The program have to be designed to operate the fan only when an object's distance falls within a specific range. 
 
-For example, it acts as an automatic mini-fan that turns on only when a face is nearby, otherwise remaining off.
+### Connection Diagram
+![스크린샷 2023-10-06 002149](https://github.com/ZZERO1009/EC-ymkim-141/assets/144536736/8f1775c0-d2a1-45d5-96e7-83733e0693fc)
 
-Pressing the B1 button changes the fan speed, with the following modes:
 
-**MODE(State): OFF(0%), MID(50% = 122), HIGH(100% = 255)**
-
-When an object (in this lab, used hand or note) is detected approximately 50mm away, it temporarily pauses the fan. Even during this pause, pressing the B1 button changes the MODE.
-
-If an object is within 50mm, it automatically starts the fan at the current MODE's speed.
-
-The LED (LED1) turns off when the MODE is set to OFF; otherwise, it blinks at a 1-second interval (1 second ON, 1 second OFF).
-
-Additionally, the program prints the distance and PWM duty ratio in the Tera-Term console every 1 second.
-
-It is essential to use a Mealy Finite State Machine (FSM) for controlling the mini-fan.
-
-### configuration
-
-#### Ultrasonic distance sensor
-
+### Discussion
+ #### 1. Draw the truth table for the BCD 7-segment decoder with the 4-bit input 
 Trigger:
   * Generate a trigger pulse as PWM to the sensor
   * Pin: D10 (TIM4 CH1)
