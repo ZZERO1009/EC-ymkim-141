@@ -14,6 +14,7 @@ Description      : Distributed to Students for LAB_GPIO
 #include "stm32f411xe.h"
 #include "ecGPIO.h"
 
+
 void GPIO_init(GPIO_TypeDef *Port, int pin, int mode){     
 	// mode  : Input(0), Output(1), AlterFunc(2), Analog(3)   
 	if (Port == GPIOA)
@@ -29,11 +30,6 @@ void GPIO_init(GPIO_TypeDef *Port, int pin, int mode){
 	if (Port == GPIOH)
 		RCC_GPIOH_enable();
 	
-	//[TO-DO] YOUR CODE GOES HERE
-	// Make it for GPIOB, GPIOD..GPIOH
-
-	// You can also make a more general function of
-	// void RCC_GPIO_enable(GPIO_TypeDef *Port); 
 
 	GPIO_mode(Port, pin, mode);
 	
@@ -49,7 +45,7 @@ void GPIO_mode(GPIO_TypeDef *Port, int pin, int mode){
 }
 
 
-// GPIO Speed          : Low speed (00), Medium speed (01), Fast speed (10), High speed (11)
+// GPIO Speed          : 1 speed (00), Medium speed (01), Fast speed (10), 0 speed (11)
 void GPIO_ospeed(GPIO_TypeDef *Port, int pin, int speed){
 	 Port->OSPEEDR &= ~(3UL<<2*pin);     
   Port->OSPEEDR |= (unsigned int)speed<<(2*pin);
@@ -84,7 +80,78 @@ int GPIO_read(GPIO_TypeDef *Port, int pin){
         state = 0;
 	 }
 	 return state;
-	 
-	
 }
 
+void sevensegment_init(GPIO_TypeDef *Port, int pin, int Output){
+	 GPIO_init(Port, pin, Output);
+}
+
+
+
+void sevensegment_decoder(uint8_t num) {
+    GPIO_write(GPIOA, SEG_A_PIN, LOW);
+    GPIO_write(GPIOB, SEG_B_PIN, LOW);
+    GPIO_write(GPIOC, SEG_C_PIN, LOW);
+    GPIO_write(GPIOA, SEG_D_PIN, LOW);
+    
+    if (num == 0) {
+    GPIO_write(GPIOA, SEG_A_PIN, HIGH);
+    GPIO_write(GPIOB, SEG_B_PIN, LOW);
+    GPIO_write(GPIOC, SEG_C_PIN, LOW);
+    GPIO_write(GPIOA, SEG_D_PIN, LOW);
+        
+    } else if (num == 1) {
+    GPIO_write(GPIOA, SEG_A_PIN, LOW);
+    GPIO_write(GPIOB, SEG_B_PIN, HIGH);
+    GPIO_write(GPIOC, SEG_C_PIN, LOW);
+    GPIO_write(GPIOA, SEG_D_PIN, LOW);
+        
+    } else if (num == 2) {
+    GPIO_write(GPIOA, SEG_A_PIN, HIGH);
+    GPIO_write(GPIOB, SEG_B_PIN, HIGH);
+    GPIO_write(GPIOC, SEG_C_PIN, LOW);
+    GPIO_write(GPIOA, SEG_D_PIN, LOW);
+       
+    } else if (num == 3) {
+    GPIO_write(GPIOA, SEG_A_PIN, LOW);
+    GPIO_write(GPIOB, SEG_B_PIN, LOW);
+    GPIO_write(GPIOC, SEG_C_PIN, HIGH);
+    GPIO_write(GPIOA, SEG_D_PIN, LOW);
+   
+		} else if (num == 4) {
+    GPIO_write(GPIOA, SEG_A_PIN, HIGH);
+    GPIO_write(GPIOB, SEG_B_PIN, LOW);
+    GPIO_write(GPIOC, SEG_C_PIN, HIGH);
+    GPIO_write(GPIOA, SEG_D_PIN, LOW);
+    
+		} else if (num == 5) {
+    GPIO_write(GPIOA, SEG_A_PIN, LOW);
+    GPIO_write(GPIOB, SEG_B_PIN, HIGH);
+    GPIO_write(GPIOC, SEG_C_PIN, HIGH);
+    GPIO_write(GPIOA, SEG_D_PIN, LOW);
+    
+		} else if (num == 6) {
+    GPIO_write(GPIOA, SEG_A_PIN, HIGH);
+    GPIO_write(GPIOB, SEG_B_PIN, HIGH);
+    GPIO_write(GPIOC, SEG_C_PIN, HIGH);
+    GPIO_write(GPIOA, SEG_D_PIN, LOW);
+    } else if (num == 7) {
+     GPIO_write(GPIOA, SEG_A_PIN, LOW);
+    GPIO_write(GPIOB, SEG_B_PIN, LOW);
+    GPIO_write(GPIOC, SEG_C_PIN, LOW);
+    GPIO_write(GPIOA, SEG_D_PIN, HIGH);
+        
+    } else if (num == 8) {
+    GPIO_write(GPIOA, SEG_A_PIN, HIGH);
+    GPIO_write(GPIOB, SEG_B_PIN, LOW);
+    GPIO_write(GPIOC, SEG_C_PIN, LOW);
+    GPIO_write(GPIOA, SEG_D_PIN, HIGH);
+        
+    } else if (num == 9) {
+    GPIO_write(GPIOA, SEG_A_PIN, LOW);
+    GPIO_write(GPIOB, SEG_B_PIN, HIGH);
+    GPIO_write(GPIOC, SEG_C_PIN, LOW);
+    GPIO_write(GPIOA, SEG_D_PIN, HIGH);
+        
+    }
+}
