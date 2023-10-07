@@ -49,6 +49,7 @@ if want to turn on specific led on common anode 7seg, have to load "LOW" to pin 
 if want to turn on specific led on common cathode 7seg, have to load "HIGH" to pin of that number.
 
 #### 3. Does the LED of a 7-segment display (common anode) pin turn ON when 'HIGH' is given to the LED pin from the MCU??
+Because we use anode, want to turn on led, have to load "LOW".
 
 ## Problem 2: Display 0~9 with button press
 
