@@ -1,8 +1,6 @@
 /*----------------------------------------------------------------\
-@ Embedded Controller by Young-Keun Kim - Handong Global University
+@ Embedded Controller by Young-Min Kim - Handong Global University
 Author           : SSS LAB
-Created          : 05-03-2021
-Modified         : 09-20-2022
 Language/ver     : C++ in Keil uVision
 
 Description      : Distributed to Students for LAB_GPIO
@@ -89,67 +87,63 @@ void sevensegment_init(GPIO_TypeDef *Port, int pin, int Output){
 
 
 void sevensegment_decoder(uint8_t num) {
-    GPIO_write(GPIOA, SEG_A_PIN, LOW);
-    GPIO_write(GPIOB, SEG_B_PIN, LOW);
-    GPIO_write(GPIOC, SEG_C_PIN, LOW);
-    GPIO_write(GPIOA, SEG_D_PIN, LOW);
     
     if (num == 0) {
-    GPIO_write(GPIOA, SEG_A_PIN, HIGH);
+    GPIO_write(GPIOA, SEG_A_PIN, LOW);
     GPIO_write(GPIOB, SEG_B_PIN, LOW);
     GPIO_write(GPIOC, SEG_C_PIN, LOW);
     GPIO_write(GPIOA, SEG_D_PIN, LOW);
         
     } else if (num == 1) {
-    GPIO_write(GPIOA, SEG_A_PIN, LOW);
-    GPIO_write(GPIOB, SEG_B_PIN, HIGH);
+    GPIO_write(GPIOA, SEG_A_PIN, HIGH);
+    GPIO_write(GPIOB, SEG_B_PIN, LOW);
     GPIO_write(GPIOC, SEG_C_PIN, LOW);
     GPIO_write(GPIOA, SEG_D_PIN, LOW);
         
     } else if (num == 2) {
-    GPIO_write(GPIOA, SEG_A_PIN, HIGH);
+    GPIO_write(GPIOA, SEG_A_PIN, LOW);
     GPIO_write(GPIOB, SEG_B_PIN, HIGH);
     GPIO_write(GPIOC, SEG_C_PIN, LOW);
     GPIO_write(GPIOA, SEG_D_PIN, LOW);
        
     } else if (num == 3) {
-    GPIO_write(GPIOA, SEG_A_PIN, LOW);
-    GPIO_write(GPIOB, SEG_B_PIN, LOW);
-    GPIO_write(GPIOC, SEG_C_PIN, HIGH);
+    GPIO_write(GPIOA, SEG_A_PIN, HIGH);
+    GPIO_write(GPIOB, SEG_B_PIN, HIGH);
+    GPIO_write(GPIOC, SEG_C_PIN, LOW);
     GPIO_write(GPIOA, SEG_D_PIN, LOW);
    
 		} else if (num == 4) {
-    GPIO_write(GPIOA, SEG_A_PIN, HIGH);
+    GPIO_write(GPIOA, SEG_A_PIN, LOW);
     GPIO_write(GPIOB, SEG_B_PIN, LOW);
     GPIO_write(GPIOC, SEG_C_PIN, HIGH);
     GPIO_write(GPIOA, SEG_D_PIN, LOW);
     
 		} else if (num == 5) {
-    GPIO_write(GPIOA, SEG_A_PIN, LOW);
-    GPIO_write(GPIOB, SEG_B_PIN, HIGH);
+    GPIO_write(GPIOA, SEG_A_PIN, HIGH);
+    GPIO_write(GPIOB, SEG_B_PIN, LOW);
     GPIO_write(GPIOC, SEG_C_PIN, HIGH);
     GPIO_write(GPIOA, SEG_D_PIN, LOW);
     
 		} else if (num == 6) {
-    GPIO_write(GPIOA, SEG_A_PIN, HIGH);
+    GPIO_write(GPIOA, SEG_A_PIN, LOW);
     GPIO_write(GPIOB, SEG_B_PIN, HIGH);
     GPIO_write(GPIOC, SEG_C_PIN, HIGH);
     GPIO_write(GPIOA, SEG_D_PIN, LOW);
     } else if (num == 7) {
-     GPIO_write(GPIOA, SEG_A_PIN, LOW);
-    GPIO_write(GPIOB, SEG_B_PIN, LOW);
-    GPIO_write(GPIOC, SEG_C_PIN, LOW);
-    GPIO_write(GPIOA, SEG_D_PIN, HIGH);
+     GPIO_write(GPIOA, SEG_A_PIN, HIGH);
+    GPIO_write(GPIOB, SEG_B_PIN, HIGH);
+    GPIO_write(GPIOC, SEG_C_PIN, HIGH);
+    GPIO_write(GPIOA, SEG_D_PIN, LOW);
         
     } else if (num == 8) {
-    GPIO_write(GPIOA, SEG_A_PIN, HIGH);
+    GPIO_write(GPIOA, SEG_A_PIN, LOW);
     GPIO_write(GPIOB, SEG_B_PIN, LOW);
     GPIO_write(GPIOC, SEG_C_PIN, LOW);
     GPIO_write(GPIOA, SEG_D_PIN, HIGH);
         
     } else if (num == 9) {
-    GPIO_write(GPIOA, SEG_A_PIN, LOW);
-    GPIO_write(GPIOB, SEG_B_PIN, HIGH);
+    GPIO_write(GPIOA, SEG_A_PIN, HIGH);
+    GPIO_write(GPIOB, SEG_B_PIN, LOW);
     GPIO_write(GPIOC, SEG_C_PIN, LOW);
     GPIO_write(GPIOA, SEG_D_PIN, HIGH);
         

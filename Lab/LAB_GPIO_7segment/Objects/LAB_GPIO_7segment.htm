@@ -3,9 +3,9 @@
 <title>Static Call Graph - [.\Objects\LAB_GPIO_7segment.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\LAB_GPIO_7segment.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6190004: Last Updated: Fri Oct  6 05:30:18 2023
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6190004: Last Updated: Sat Oct  7 20:59:22 2023
 <BR><P>
-<H3>Maximum Stack Usage =        196 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        188 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 __rt_entry_main &rArr; main &rArr; updateDisplay &rArr; sevensegment_decoder &rArr; GPIO_write
 <P>
@@ -222,7 +222,7 @@ Global Symbols
 <P><STRONG><a name="[89]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[4f]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 196 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 188 + Unknown Stack Size
 <LI>Call Chain = __rt_entry_main &rArr; main &rArr; updateDisplay &rArr; sevensegment_decoder &rArr; GPIO_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
@@ -633,8 +633,8 @@ Global Symbols
 <P><STRONG><a name="[43]"></a>SystemInit</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, system_stm32f4xx.o(.text.SystemInit))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f411xe.o(.text)
 </UL>
-<P><STRONG><a name="[50]"></a>main</STRONG> (Thumb, 138 bytes, Stack size 16 bytes, lab_gpio_7segmentmain.o(.text.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 196<LI>Call Chain = main &rArr; updateDisplay &rArr; sevensegment_decoder &rArr; GPIO_write
+<P><STRONG><a name="[50]"></a>main</STRONG> (Thumb, 126 bytes, Stack size 16 bytes, lab_gpio_7segmentmain.o(.text.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 188<LI>Call Chain = main &rArr; updateDisplay &rArr; sevensegment_decoder &rArr; GPIO_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;updateDisplay
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_read
@@ -654,8 +654,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[67]"></a>sevensegment_decoder</STRONG> (Thumb, 832 bytes, Stack size 160 bytes, ecgpio.o(.text.sevensegment_decoder))
-<BR><BR>[Stack]<UL><LI>Max Depth = 172<LI>Call Chain = sevensegment_decoder &rArr; GPIO_write
+<P><STRONG><a name="[67]"></a>sevensegment_decoder</STRONG> (Thumb, 776 bytes, Stack size 152 bytes, ecgpio.o(.text.sevensegment_decoder))
+<BR><BR>[Stack]<UL><LI>Max Depth = 164<LI>Call Chain = sevensegment_decoder &rArr; GPIO_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_write
 </UL>
@@ -671,7 +671,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[64]"></a>updateDisplay</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, lab_gpio_7segmentmain.o(.text.updateDisplay))
-<BR><BR>[Stack]<UL><LI>Max Depth = 180<LI>Call Chain = updateDisplay &rArr; sevensegment_decoder &rArr; GPIO_write
+<BR><BR>[Stack]<UL><LI>Max Depth = 172<LI>Call Chain = updateDisplay &rArr; sevensegment_decoder &rArr; GPIO_write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sevensegment_decoder
 </UL>
