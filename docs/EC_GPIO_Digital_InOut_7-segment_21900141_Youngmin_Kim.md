@@ -4,7 +4,7 @@
 
 **Author/Partner:** 21900141 Youngmin Kim
 
-**Github**: <https://github.com/ZZERO1009/LAB1_mini_fan/blob/aa66b9efee4b68b8aaafcd5549caab45be376240/EC_LAB_miniFan_report_21900141_Youngmin_Kim.md>
+**Github**: <https://github.com/ZZERO1009/EC-ymkim-141/blob/5132852617779f43b92299d6aeb5b2cbc81def34/docs/EC_GPIO_Digital_InOut_7-segment_21900141_Youngmin_Kim.md>
 
 
 ## Introduction
