@@ -38,9 +38,6 @@ This picture show connecting 7 seg to resistor, and to pin and show example that
 
 ### Discussion
 
-
-### Discussion
-
  #### 1. Draw the truth table for the BCD 7-segment decoder with the 4-bit input 
 ![image](https://github.com/ZZERO1009/EC-ymkim-141/assets/144536736/80980b2a-6fb0-4828-ade3-eda60a7b00ba)
 
@@ -53,224 +50,169 @@ if want to turn on specific led on common cathode 7seg, have to load "HIGH" to p
 
 #### 3. Does the LED of a 7-segment display (common anode) pin turn ON when 'HIGH' is given to the LED pin from the MCU??
 
-#### USART
-  * Display measured distance in [cm] on serial monitor of Tera-Term.
-  * Baudrate 9600
+## Problem 2: Display 0~9 with button press
 
-#### DC Motor
-  * PWM: PWM1, set 10ms of period by default
-  * Pin: D11 (Timer1 CH1N)
+In this part, we have to set 7seg without decoder.
 
-## Circuit/Wiring Diagram
+### Procedure
+ #### Declare and Define the following functions in library
+ First, in GPIO.h, i added code for define pins and function
+ ```c++
+// Pin definition, following configuration table
+#define SEG_A_PIN 5
+#define SEG_B_PIN 6
+#define SEG_C_PIN 7
+#define SEG_D_PIN 6
+#define SEG_E_PIN 7
+#define SEG_F_PIN 9
+#define SEG_G_PIN 8
+#define SEG_H_PIN 10
 
-![Sizzling Fyyran-Tumelo p](https://github.com/ZZERO1009/LAB1_mini_fan/assets/144536736/e715fbb8-840c-4bf8-8810-df31ad490b2f)
-
-## Algorithm
-
-### Overview
-
-![스크린샷(5)](https://github.com/ZZERO1009/LAB1_mini_fan/assets/144536736/0c661558-2b76-491a-b537-7ac51408d5d7)
-
-
-### Mealy FSM Table
-
-![스크린샷(4)](https://github.com/ZZERO1009/LAB1_mini_fan/assets/144536736/eb7bf604-6bbd-4e7c-864a-5d35422cb300)
-
-### Description with Code
-
-##### State definition
-Based on the investigation results, it has been determined that a configuration consisting of only essential states is appropriate. 
-
-This configuration comprises three states: S0, S1, and S2, defined as follows: S0 = 0ff, S1 = 50% (122), and S2 = 100% (255).
-
-```c++
-// State definition
-#define S0  0
-#define S1  1
-#define S2  2
+//Fuction for 7seg
+void sevensegment_init(GPIO_TypeDef *Port, int pin, int Output);
+//it's for setting pins to out
+void sevensegment_decoder(uint8_t  num);
+// it's for the number state
 ```
-
-#### FSM
-
-Mealy FSM to code
-
-```c++
-// State table definition
-typedef struct {
-  unsigned int next[4];       
-  // next state = FSM[state].next[input]
-  unsigned int out[4][2];     
-  // output = FSM[state].out[input]
-} State_t;
-
-State_t FSM[3] = {
-    {{S0, S0, S1, S1}, {{0, LOW}, {0, LOW}, {0, HIGH}, {122, HIGH}}},
-    {{S1, S1, S2, S2}, {{0, HIGH}, {122, HIGH}, {0, HIGH}, {225, HIGH}}},
-    {{S2, S2, S0, S0}, {{0, HIGH}, {225, HIGH}, {0, LOW}, {0, LOW}}},
-};
-```
-#### Settings for in and out
-```c++
-
-const int ledPin = 13;
-const int pwmPin = 11;
-const int btnPin = 3;
-const int trigPin = 10;
-const int echoPin = 7;
-
-unsigned char state = S0;
-unsigned char input[2] = {0, 0};
-unsigned char pwmOut = 0;
-unsigned char ledOut = LOW;
-
-unsigned long duration;
-float distance;
-int thresh = 5;
-
-// Timer variables (for led blink)
-unsigned long previousMillis = 0;
-const long interval = 1000;
-```
-
-#### Loop
-this part of the code,measures the distance using sensor and stores it in the 'distance' variable. 
-
-Then, it calls the 'nextState()' to calculate and update the next state. also calls the 'stateOutput()'fetch the PWM out and LED based on the current state. 
-
-Additionally, it periodically prints the distance + PWM ratio to the  monitor at regular time intervals.
-
-```c++
-
-void loop() {
-  // Generate PWM signal on trigger pin
-  digitalWrite(trigPin, LOW);
-  delayMicroseconds(2);
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
-  delayMicroseconds(10);
-
-  // Calculate distance using the duration of the echo pulse
-  duration = pulseIn(echoPin, HIGH);
-  distance = (float)duration / 58.0;
-
-  // Calculate next state, then update state
-  nextState();
-
-  // State output
-  stateOutput();
-  
-  // Print distance and PWM duty ratio to Tera-Term console every 1 second
-  unsigned long currentMillis = millis();
-  if (currentMillis - previousMillis >= interval) {
-    previousMillis = currentMillis;
-    Serial.print("Distance = ");
-    Serial.print(distance);
-    Serial.print(" [cm], PWM duty cycle = ");
-    Serial.print(pwmOut);
-    Serial.println("%");
-  }
-  
-  analogWrite(pwmPin, pwmOut);
+Next, on Gpio.c, adding led out to each number state.
+ ```c++
+void sevensegment_init(GPIO_TypeDef *Port, int pin, int Output){
+	 GPIO_init(Port, pin, Output);
 }
+
+void sevensegment_decoder(uint8_t num) {
+    if (num == 0) {
+        GPIO_write(GPIOA, SEG_A_PIN, LOW);
+        GPIO_write(GPIOA, SEG_B_PIN, LOW);
+        GPIO_write(GPIOA, SEG_C_PIN, LOW);
+        GPIO_write(GPIOB, SEG_D_PIN, LOW);
+        GPIO_write(GPIOC, SEG_E_PIN, LOW);
+        GPIO_write(GPIOA, SEG_F_PIN, LOW);
+				GPIO_write(GPIOA, SEG_G_PIN, HIGH);
+    } else if (num == 1) {
+        GPIO_write(GPIOA, SEG_A_PIN, HIGH);
+        GPIO_write(GPIOA, SEG_B_PIN, LOW);
+        GPIO_write(GPIOA, SEG_C_PIN, LOW);
+        GPIO_write(GPIOB, SEG_D_PIN, HIGH);
+        GPIO_write(GPIOC, SEG_E_PIN, HIGH);
+        GPIO_write(GPIOA, SEG_F_PIN, HIGH);
+ // others follow truth tabe of 7seg too.
 ```
-#### Btn pressed
-In the overall code, it's evident that the transition to the next state is triggered by the 'btn' press. 
 
-This transition involves moving from one state to another, 
-
-such as transitioning from 'S0' to 'S1'(rather than returning to the same state like 'S0' to 'S0').
-
+ #### Declare and Define main code.
+Set main code for 7 seg runnig.
 ```c++
-void pressed(){
-  input[0] = 1;
-  nextState();
-  input[0] = 0;
-}
-```
-#### Next state
-calculates the next state using the FSM code.
-```c++
-void nextState(){
-  if (distance < thresh)
-    input[1] = 1;
-  else
-    input[1] = 0;
+#include "..\..\include\ecGPIO.h"
+#include "stm32f4xx.h"
+#include "..\..\include\ecRCC.h"
+
+unsigned int cnt = 0;
+//cnt is 0~9, it goes to display. 
+int buttonState = 0;
+int lastButtonState = 0;
+//This codes is gor define state for number
+
+void setup(void);
+void updateDisplay(void);
+// we will put "void sevensegment_decoder(uint8_t  num);" to here, when cnt is change, this fucntion will put cnt to "num"
+
+int main(void) {
+    setup();
     
-  // Get next state
-  state = FSM[state].next[input[0] * 2 + input[1]];  
-  // Modified input calculation
-}
-```
-
-#### Output
-
-
-based on present state and input, It configures the movement of the motor and controls the blinking of the LED.
-```c++
-void stateOutput(){
-  pwmOut = FSM[state].out[input[0] * 2 + input[1]][PWM];  
-  // Modified input calculation
-  ledOut = FSM[state].out[input[0] * 2 + input[1]][LED];  
-  // Modified input calculation
-}
-```
-
-#### Timer
-this part is for the led blink(distance is close enough, sec 1).
-
-```c++
-// Code for led blink
-void timerInterrupt() {
-  // Check the current MODE and control the LED accordingly
- 
-  if (state == S0) {
-    digitalWrite(ledPin, LOW);  
-    // Turn off LED when MODE is OFF
-  } else {
-    static unsigned long 
-    previousMillis = 0;
-    
-    unsigned long currentMillis = millis();
-    
-    if (currentMillis - previousMillis >= interval / 2) {
-      previousMillis = currentMillis;
-      digitalWrite(ledPin, !digitalRead(ledPin));  
-      // Blink the LED every 1 second
+    while (1) {
+        buttonState = GPIO_read(GPIOC, BUTTON_PIN);
+         // by GPIO read, buttonState will updated by button
+        if (buttonState != lastButtonState) {
+            if (buttonState == LOW) {
+                cnt++;
+                if (cnt > 9) {
+                    cnt = 0;
+               // cnt followe the act of button by code here, when it over 9, goes to zero and cycle is reset
+                }
+            }
+            lastButtonState = buttonState;
+        }
+        updateDisplay();
     }
-  }
 }
+
+void setup(void) {
+    RCC_HSI_init();
+		GPIO_init(GPIOC, BUTTON_PIN, 0UL);
+    GPIO_pupd(GPIOC, BUTTON_PIN, 2UL);
+    sevensegment_init(GPIOA, SEG_A_PIN, 1UL);
+    sevensegment_init(GPIOA, SEG_B_PIN, 1UL);
+    sevensegment_init(GPIOA, SEG_C_PIN, 1UL);
+    sevensegment_init(GPIOB, SEG_D_PIN, 1UL);
+    sevensegment_init(GPIOC, SEG_E_PIN, 1UL);
+    sevensegment_init(GPIOA, SEG_F_PIN, 1UL);
+    sevensegment_init(GPIOA, SEG_G_PIN, 1UL);
+    sevensegment_init(GPIOB, SEG_H_PIN, 1UL);
+    // button is set by code ( following configuration), seach mcu pins we have to use are setted to out.
+}
+
+void updateDisplay(void) {
+    sevensegment_decoder(cnt);
+  // This code update num(following cnt).
+}
+
+```
+### Result
+<https://youtube.com/shorts/zvV-xIsL1n0>
+
+## Problem 3: Using both 7-Segment Decoder and 7-segment display
+In this part, add 74LS47, connect mcu out to decoder in, decoder out to 7 seg in.
+
+### Procedure
+
+### Connection Diagram
+![스크린샷 2023-10-08 000335](https://github.com/ZZERO1009/EC-ymkim-141/assets/144536736/7de0820c-4190-4769-8863-dc6d9bdb0dc7)
+Because tinker dosen't have nucleo f411re, set mcu pin that start at d5 in this picture.
+
+ #### Declare and Define the following functions in library
+ First, Change GPIO.h for pin definition and display on.
+ ```c++
+// Pin definition, following configuration table
+#define SEG_A_PIN 7
+#define SEG_B_PIN 6
+#define SEG_C_PIN 7
+#define SEG_D_PIN 9
+```
+And then, chage GPIO.c to change fuction
+
+ ```c++
+void sevensegment_decoder(uint8_t num) {
+// Because we use decoder, change decoder fuction to use 4 input
+  
+    if (num == 0) {
+    GPIO_write(GPIOA, SEG_A_PIN, LOW);
+    GPIO_write(GPIOB, SEG_B_PIN, LOW);
+    GPIO_write(GPIOC, SEG_C_PIN, LOW);
+    GPIO_write(GPIOA, SEG_D_PIN, LOW);
+        
+    } else if (num == 1) {
+    GPIO_write(GPIOA, SEG_A_PIN, HIGH);
+    GPIO_write(GPIOB, SEG_B_PIN, LOW);
+    GPIO_write(GPIOC, SEG_C_PIN, LOW);
+    GPIO_write(GPIOA, SEG_D_PIN, LOW);
+
+
+ // others follow truth tabe of 7seg too.
 ```
 
-## Results and Analysis
-
+ #### Change main code.
+We just have to chanege setup code
+```c++
+void setup(void) {
+    RCC_HSI_init();
+		GPIO_init(GPIOC, BUTTON_PIN, 0UL);
+    GPIO_pupd(GPIOC, BUTTON_PIN, 2UL);
+    sevensegment_init(GPIOA, SEG_A_PIN, 1UL);
+    sevensegment_init(GPIOA, SEG_B_PIN, 1UL);
+    sevensegment_init(GPIOA, SEG_C_PIN, 1UL);
+    sevensegment_init(GPIOB, SEG_D_PIN, 1UL);
+}
+```
 ### Result
+<https://youtube.com/shorts/lCrwXU5NIAs?feature=share>
 
-The final code has been written to meet various conditions, and it has been updated to the Nucleo board for testing its real-world functionality. 
-
-Additionally, hardware configurations such as pin connections have been set up to ensure proper operation.
-
-![KakaoTalk_20230910_015238566_02](https://github.com/ZZERO1009/LAB1_mini_fan/assets/144536736/7c8b2a7a-f8da-4f47-862e-5fcdc2596656)
-![KakaoTalk_20230910_015238566_03](https://github.com/ZZERO1009/LAB1_mini_fan/assets/144536736/83b2409f-ee04-4b6d-9a6c-cde054b3313f)
-![KakaoTalk_20230910_015238566_01](https://github.com/ZZERO1009/LAB1_mini_fan/assets/144536736/a70e26ad-b65d-45fb-ac39-284faf51e8e5)
-
-### Demo video
-
-<https://youtu.be/k742ZgKgNyA>
-
-### Analysis
-
-In the final stage, the code based on the state table was confirmed to be operational through hardware connections. To ensure accuracy, the process was divided into two parts in the video recording.
-
-The first part involved pressing the button when the distance was close to verify the results. 
-
-In the second part, the button was pressed when the distance was far, and then the distance was reduced to ensure that the states were functioning correctly.
-
-However, there were some challenges encountered during the experiment, particularly with the ultrasonic sensor and the DC motor. 
-
-As observed in the video, the sensor occasionally displayed a distance reading of 7 cm even when there was nothing in front of it, and at times, 
-
-it would suddenly display 6 or 7 cm readings when the distance was intentionally reduced.
-
-
-Overall, the experimentation revealed some challenges with the ultrasonic sensor, and further troubleshooting may be necessary to address these issues and ensure accurate results.
