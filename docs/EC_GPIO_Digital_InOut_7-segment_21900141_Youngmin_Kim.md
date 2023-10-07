@@ -4,7 +4,7 @@
 
 **Author/Partner:** 21900141 Youngmin Kim
 
-**Github**: <https://github.com/ZZERO1009/EC-ymkim-141/blob/5132852617779f43b92299d6aeb5b2cbc81def34/docs/EC_GPIO_Digital_InOut_7-segment_21900141_Youngmin_Kim.md>
+**Github**: <https://github.com/ZZERO1009/EC-ymkim-141/blob/548df33664a56bd37c8bbf4d9b408c60196b231a/docs/EC_GPIO_Digital_InOut_7-segment_21900141_Youngmin_Kim.md>
 
 
 ## Introduction
