@@ -9,7 +9,6 @@ Description      : Distributed to Students for LAB_GPIO
 /----------------------------------------------------------------*/
 
 
-
 #include "stm32f411xe.h"
 #include "ecRCC.h"
 
@@ -26,11 +25,14 @@ Description      : Distributed to Students for LAB_GPIO
 
 #define LED_PIN 	5
 #define BUTTON_PIN 13
-#define SEG_A_PIN 7
+#define SEG_A_PIN 5
 #define SEG_B_PIN 6
 #define SEG_C_PIN 7
-#define SEG_D_PIN 9
-
+#define SEG_D_PIN 6
+#define SEG_E_PIN 7
+#define SEG_F_PIN 9
+#define SEG_G_PIN 8
+#define SEG_H_PIN 10
 #ifdef __cplusplus
  extern "C" {
 #endif /* __cplusplus */

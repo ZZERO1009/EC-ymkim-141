@@ -49,7 +49,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Objects\</OutputDirectory>
-          <OutputName>LAB_GPIO_7segment</OutputName>
+          <OutputName>.\LED_GPIO_7segment</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -385,9 +385,9 @@
           <GroupName>Source Group 1</GroupName>
           <Files>
             <File>
-              <FileName>LAB_GPIO_7segmentmain.c</FileName>
+              <FileName>LAB_GPIO_7segment.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\LAB_GPIO_7segmentmain.c</FilePath>
+              <FilePath>.\LAB_GPIO_7segment.c</FilePath>
             </File>
           </Files>
         </Group>
