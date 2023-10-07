@@ -9,7 +9,7 @@
 
 ## Introduction
 
-n this lab, I createD a simple program to control a 7-segment display to show a decimal number (0~9) that increases by pressing a push-button.
+In this lab, I created a simple program to control a 7-segment display to show a decimal number (0~9) that increases by pressing a push-button.
 ## Requirement
 
 ### Hardware 
@@ -30,24 +30,28 @@ n this lab, I createD a simple program to control a 7-segment display to show a 
 ## Problem 1 :
 
 ### Procedure
-
+Connecting 7 seg to resistors(becausse my ckt draw prodram doesn't have array resistor, i used usual resistor).
 
 ### Connection Diagram
 ![스크린샷 2023-10-06 002149](https://github.com/ZZERO1009/EC-ymkim-141/assets/144536736/8f1775c0-d2a1-45d5-96e7-83733e0693fc)
+This picture show connecting 7 seg to resistor, and to pin and show example that turn on "a".
+
+### Discussion
 
 
 ### Discussion
- #### 1. Draw the truth table for the BCD 7-segment decoder with the 4-bit input 
-Trigger:
-  * Generate a trigger pulse as PWM to the sensor
-  * Pin: D10 (TIM4 CH1)
-  * PWM out: 50ms period, 10us pulse-width
 
-Echo:
-  * Receive echo pulses from the ultrasonic sensor
-  * Pin: D7 (Timer1 CH1)
-  * Input Capture: Input mode
-  * Measure the distance by calculating pulse-width of the echo pulse.
+ #### 1. Draw the truth table for the BCD 7-segment decoder with the 4-bit input 
+![image](https://github.com/ZZERO1009/EC-ymkim-141/assets/144536736/80980b2a-6fb0-4828-ade3-eda60a7b00ba)
+
+ #### 2. What are the common cathode and common anode of 7-segment display? 
+Common anode is connected to VCC, and common cathode is connected to GND.
+
+if want to turn on specific led on common anode 7seg, have to load "LOW" to pin of that number.
+
+if want to turn on specific led on common cathode 7seg, have to load "HIGH" to pin of that number.
+
+#### 3. Does the LED of a 7-segment display (common anode) pin turn ON when 'HIGH' is given to the LED pin from the MCU??
 
 #### USART
   * Display measured distance in [cm] on serial monitor of Tera-Term.
