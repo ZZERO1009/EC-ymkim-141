@@ -24,12 +24,12 @@ Description      : Distributed to Students for LAB_GPIO
 #define HIGH 1
 #define LOW  0
 
-#define LED_PIN 	5
+#define LED_PIN1 	5
 #define BUTTON_PIN 13
-#define SEG_A_PIN 7
-#define SEG_B_PIN 6
-#define SEG_C_PIN 7
-#define SEG_D_PIN 9
+#define LED_PIN2 6
+#define LED_PIN3 7
+#define LED_PIN4 6
+
 
 #ifdef __cplusplus
  extern "C" {
@@ -42,8 +42,8 @@ void GPIO_mode(GPIO_TypeDef* Port, int pin, int mode);
 void GPIO_ospeed(GPIO_TypeDef* Port, int pin, int speed);
 void GPIO_otype(GPIO_TypeDef* Port, int pin, int type);
 void GPIO_pupd(GPIO_TypeDef* Port, int pin, int pupd);
-void sevensegment_init(GPIO_TypeDef *Port, int pin, int Output); 
-void sevensegment_decoder(uint8_t  num);
+void multiled_init(GPIO_TypeDef *Port, int pin, int Output); 
+void multiled_decoder(uint8_t  num);
 
  
 #ifdef __cplusplus
