@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------\
-@ Embedded Controller by Young-Keun Kim - Handong Global University
+@ Embedded Controller by Young-Min Kim - Handong Global University
 Author           : SSS LAB
 Created          : 05-03-2021
 Modified         : 09-20-2022
@@ -7,6 +7,7 @@ Language/ver     : C++ in Keil uVision
 
 Description      : Distributed to Students for LAB_GPIO
 /----------------------------------------------------------------*/
+
 
 
 #include "stm32f411xe.h"
@@ -23,12 +24,11 @@ Description      : Distributed to Students for LAB_GPIO
 #define HIGH 1
 #define LOW  0
 
-#define LED_PIN 	5
+#define LED_PIN1 	5
 #define BUTTON_PIN 13
-#define SEG_A_PIN 7
-#define SEG_B_PIN 6
-#define SEG_C_PIN 7
-#define SEG_D_PIN 9
+#define LED_PIN2 6
+#define LED_PIN3 7
+#define LED_PIN4 6
 
 
 #ifdef __cplusplus
@@ -42,11 +42,10 @@ void GPIO_mode(GPIO_TypeDef* Port, int pin, int mode);
 void GPIO_ospeed(GPIO_TypeDef* Port, int pin, int speed);
 void GPIO_otype(GPIO_TypeDef* Port, int pin, int type);
 void GPIO_pupd(GPIO_TypeDef* Port, int pin, int pupd);
-void sevensegment_init(GPIO_TypeDef *Port, int pin, int Output); 
-void sevensegment_decoder(unsigned int num);
-void updateDisplay(void);
-extern volatile unsigned int cnt;
-
+void ONE_LED_init(GPIO_TypeDef *Port, int pin, int Output); 
+void ONE_LED_decoder(uint8_t  num);
+void multiled_init(GPIO_TypeDef *Port, int pin, int Output); 
+void multiled_decoder(uint8_t  num);
 
  
 #ifdef __cplusplus

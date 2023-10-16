@@ -21,39 +21,25 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.1.0.0
 Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
-C:\Users\Zzero1009\source\repos\EC-ymkim-141\Lab\LAB_GPIO_DIO_LED\LAB_GPIO_DIO_LED.uvprojx
-Project File Date:  10/03/2023
+C:\Users\Zzero1009\source\repos\EC\Lab\LAB_EXTI\LAB_EXTI.uvprojx
+Project File Date:  10/13/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'Target 1'
-LAB_GPIO_DIO_LED_main.c(13): warning: no previous extern declaration for non-static variable 'cnt' [-Wmissing-variable-declarations]
-unsigned int cnt = 0;
-             ^
-LAB_GPIO_DIO_LED_main.c(13): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-unsigned int cnt = 0;
-^
-LAB_GPIO_DIO_LED_main.c(14): warning: no previous extern declaration for non-static variable 'buttonState' [-Wmissing-variable-declarations]
-int buttonState = 0;
-    ^
-LAB_GPIO_DIO_LED_main.c(14): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-int buttonState = 0;
-^
-LAB_GPIO_DIO_LED_main.c(15): warning: no previous extern declaration for non-static variable 'lastButtonState' [-Wmissing-variable-declarations]
-int lastButtonState = 0;
-    ^
-LAB_GPIO_DIO_LED_main.c(15): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-int lastButtonState = 0;
-^
-LAB_GPIO_DIO_LED_main.c(46): warning: implicit conversion loses integer precision: 'unsigned int' to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
-    ONE_LED_decoder(cnt);
-    ~~~~~~~~~~~~~~~ ^~~
-4 warnings generated.
-compiling LAB_GPIO_DIO_LED_main.c...
+LAB_EXTI.c(3): warning: In file included from...
+./..\..\lib\ecEXTI.h(26): warning: no newline at end of file [-Wnewline-eof]
+#endif
+      ^
+LAB_EXTI.c(51): warning: no newline at end of file [-Wnewline-eof]
+   
+   ^
+2 warnings generated.
+compiling LAB_EXTI.c...
 linking...
-Program Size: Code=1284 RO-data=440 RW-data=4 ZI-data=1652  
+Program Size: Code=2676 RO-data=440 RW-data=4 ZI-data=1644  
 FromELF: creating hex file...
-".\Objects\LAB_GPIO_DIO_LED.axf" - 0 Error(s), 4 Warning(s).
+".\Objects\LAB_EXTI.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -79,12 +65,12 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:2.6.3
-      Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
+      Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
       Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
       Source file:   MDK/Device/Source/ARM/STM32F411xx_OPT.s
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f411xe.s
-      Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
-Build Time Elapsed:  00:00:01
+      Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
+Build Time Elapsed:  00:00:00
 </pre>
 </body>
 </html>

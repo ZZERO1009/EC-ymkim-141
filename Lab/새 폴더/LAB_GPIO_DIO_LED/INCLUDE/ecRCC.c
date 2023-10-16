@@ -75,7 +75,7 @@ void RCC_PLL_init(void) {
 void RCC_GPIOA_enable(void)
 {
 	// HSI is used as system clock         
-	
+	RCC_HSI_init();
 	// RCC Peripheral Clock Enable Register 
 	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
 }
@@ -83,7 +83,7 @@ void RCC_GPIOA_enable(void)
 void RCC_GPIOB_enable(void)
 {
 	// HSI is used as system clock         
-	
+	RCC_HSI_init();
 	// RCC Peripheral Clock Enable Register 
 	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
 }
@@ -91,7 +91,7 @@ void RCC_GPIOB_enable(void)
 void RCC_GPIOC_enable(void)
 {
 	// HSI is used as system clock         
-	
+	RCC_HSI_init();
 	// RCC Peripheral Clock Enable Register 
 	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
 }
@@ -99,7 +99,7 @@ void RCC_GPIOC_enable(void)
 void RCC_GPIOD_enable(void)
 {
 	// HSI is used as system clock         
-	
+	RCC_HSI_init();
 	// RCC Peripheral Clock Enable Register 
 	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
 }
@@ -107,7 +107,7 @@ void RCC_GPIOD_enable(void)
 void RCC_GPIOE_enable(void)
 {
 	// HSI is used as system clock         
-	
+	RCC_HSI_init();
 	// RCC Peripheral Clock Enable Register 
 	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
 }
@@ -115,7 +115,7 @@ void RCC_GPIOE_enable(void)
 void RCC_GPIOH_enable(void)
 {
 	// HSI is used as system clock         
-	
+	RCC_HSI_init();
 	// RCC Peripheral Clock Enable Register 
 	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
 }
