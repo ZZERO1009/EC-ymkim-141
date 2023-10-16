@@ -4,7 +4,7 @@
 
 **Author/Partner:** 21900141 Youngmin Kim
 
-**Github**: <>
+**Github**: <https://github.com/ZZERO1009/EC-ymkim-141/blob/main/docs/EC_LAB_led_21900141_Youngmin_Kim.md>
 
 **Demo video link**:
 
