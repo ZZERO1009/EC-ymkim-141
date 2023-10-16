@@ -21,13 +21,43 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.1.0.0
 Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
-C:\Users\Zzero1009\source\repos\EC\Lab\LAB_EXTI\LAB_EXTI.uvprojx
-Project File Date:  10/13/2023
+C:\Users\Zzero1009\source\repos\EC\Tutorial\TU_SysTick\TU_ SysTick.uvprojx
+Project File Date:  10/10/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'Target 1'
-".\Objects\LAB_EXTI.axf" - 0 Error(s), 0 Warning(s).
+TU_SysTick.c(8): warning: no previous extern declaration for non-static variable 'msTick' [-Wmissing-variable-declarations]
+volatile uint32_t msTick = 0;
+                  ^
+TU_SysTick.c(8): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+volatile uint32_t msTick = 0;
+         ^
+TU_SysTick.c(10): warning: no previous extern declaration for non-static variable 'msDelay' [-Wmissing-variable-declarations]
+volatile uint32_t msDelay=1000;
+                  ^
+TU_SysTick.c(10): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+volatile uint32_t msDelay=1000;
+         ^
+TU_SysTick.c(58): warning: no previous prototype for function 'SysTick_Handler' [-Wmissing-prototypes]
+void SysTick_Handler(void){
+     ^
+TU_SysTick.c(58): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void SysTick_Handler(void){
+^
+static 
+TU_SysTick.c(9): warning: no previous extern declaration for non-static variable 'curTicks' [-Wmissing-variable-declarations]
+volatile uint32_t curTicks;
+                  ^
+TU_SysTick.c(9): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+volatile uint32_t curTicks;
+         ^
+4 warnings generated.
+compiling TU_SysTick.c...
+linking...
+Program Size: Code=1476 RO-data=440 RW-data=8 ZI-data=1640  
+FromELF: creating hex file...
+".\Objects\TU_EXTI.axf" - 0 Error(s), 4 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -53,10 +83,10 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:2.6.3
-      Source file:   MDK/Device/Source/ARM/STM32F411xx_OPT.s
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f411xe.s
-      Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
+      Source file:   MDK/Device/Source/ARM/STM32F411xx_OPT.s
       Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
+      Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
 Build Time Elapsed:  00:00:00
 </pre>

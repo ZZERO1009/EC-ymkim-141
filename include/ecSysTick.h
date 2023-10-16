@@ -1,3 +1,12 @@
+/*----------------------------------------------------------------\
+@ Embedded Controller by Young-Keun Kim - Handong Global University
+Author           : 21900141 Young-Min Kim
+
+Language/ver     : C++ in Keil uVision
+
+Description      : Code for SysTick Lab
+/----------------------------------------------------------------*/
+
 #ifndef __EC_SYSTICK_H
 #define __EC_SYSTICK_H
 

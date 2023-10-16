@@ -1,3 +1,12 @@
+/*----------------------------------------------------------------\
+@ Embedded Controller by Young-Min Kim - Handong Global University
+Author           : 21900141 Young-Min Kim
+
+Language/ver     : C++ in Keil uVision
+
+Description      : Lib and Function define for make EXTI lab
+/----------------------------------------------------------------*/
+
 #ifndef __EC_EXTI_H
 #define __EC_EXTI_H
 

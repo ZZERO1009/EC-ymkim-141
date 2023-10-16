@@ -1,5 +1,14 @@
-#include "ecGPIO.h"
+/*----------------------------------------------------------------\
+@ Embedded Controller by Young-Min Kim - Handong Global University
+Author           : 21900141 Young-Min Kim
 
+Language/ver     : C++ in Keil uVision
+
+Description      : Lib and Function define for make EXTI lab
+/----------------------------------------------------------------*/
+
+
+#include "ecGPIO.h"
 #include "ecEXTI.h"
 
 
@@ -55,22 +64,16 @@ uint32_t is_pending_EXTI(uint32_t pin){
 	 return ((EXTI->PR & EXTI_PRx) == EXTI_PRx);
 }
 
-
 void clear_pending_EXTI(uint32_t pin){
 	EXTI->PR = (1 << pin); // clear EXTI pending 
 }
+
 void EXTI15_10_IRQHandler(void) {
     if (EXTI->PR & EXTI_PR_PR13) {
-     
-
-        cnt++;
-
+			cnt++;
         if (cnt > 9) {
             cnt = 0;
         }
-
-     
-
-        EXTI->PR |= EXTI_PR_PR13;
+		EXTI->PR |= EXTI_PR_PR13;
     }
 }

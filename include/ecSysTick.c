@@ -1,8 +1,13 @@
+/*----------------------------------------------------------------\
+@ Embedded Controller by Young-Min Kim - Handong Global University
+Author           : 21900141 Young-Min Kim
+
+Language/ver     : C++ in Keil uVision
+
+Description      : Lib and Function define for make SisTick lab
+/----------------------------------------------------------------*/
+
 #include "ecSysTick.h"
-
-
-
-
 
 volatile uint32_t msTicks=0;
 
