@@ -4,7 +4,7 @@
 
 **Author/Partner:** 21900141 Youngmin Kim
 
-**Github**: 
+**Github**: https://github.com/ZZERO1009/EC-ymkim-141/blob/5990aea4e475ab6bb7142e663a78183d66247b6f/docs/LAB_Timer_InputCapture_Ultrasonic_report_21900141_Youngmin_Kim.md
 
 
 ## Introduction
@@ -276,11 +276,11 @@ Each HC-SR04 module includes an ultrasonic transmitter, a receiver and a control
 
 #### Configuration 
 
-![](C:\Users\Zzero1009\사진\스크린샷\스크린샷 2023-11-07 015400.png)
+![image](https://github.com/ZZERO1009/EC-ymkim-141/assets/144536736/0c541c02-e1c4-474d-85c3-78b92f02fb6c)
 
 #### Circuit Diagram
 
-![](C:\Users\Zzero1009\사진\스크린샷\스크린샷 2023-11-07 015920.png)
+![image](https://github.com/ZZERO1009/EC-ymkim-141/assets/144536736/93d2579e-4889-4d91-ad96-086ed27358f7)
 
 (Due to program limitations, the implementation for ports and pins will be substituted with D5 and D6.)
 
