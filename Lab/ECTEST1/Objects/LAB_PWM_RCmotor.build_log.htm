@@ -1,0 +1,214 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: •ÏVision V5.38.0.0
+Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: jj Zzero1009, k, LIC=----
+ 
+Tool Versions:
+Toolchain:       MDK-Lite  Version: 5.38.0.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.19
+Assembler:       Armasm.exe V6.19
+Linker/Locator:  ArmLink.exe V6.19
+Library Manager: ArmAr.exe V6.19
+Hex Converter:   FromElf.exe V6.19
+CPU DLL:         SARMCM3.DLL V5.38.0.0
+Dialog DLL:      DCM.DLL V1.17.5.0
+Target DLL:      UL2CM3.DLL V1.164.8.0
+Dialog DLL:      TCM.DLL V1.56.4.0
+ 
+<h2>Project:</h2>
+C:\Users\Zzero1009\source\repos\EC\Lab\ECTEST1\EC_TEST1.uvprojx
+Project File Date:  10/27/2023
+
+<h2>Output:</h2>
+*** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
+Build target 'Target 1'
+EC_Test1_21900141.c(20): warning: In file included from...
+./..\..\lib\ecEXTI.h(35): warning: no newline at end of file [-Wnewline-eof]
+#endif
+      ^
+EC_Test1_21900141.c(65): warning: no newline at end of file [-Wnewline-eof]
+}
+ ^
+2 warnings generated.
+compiling EC_Test1_21900141.c...
+compiling system_stm32f4xx.c...
+compiling ecSysTick.c...
+compiling ecGPIO.c...
+../../lib/ecPinNames.c(9): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+        unsigned int portNum=(pinName>>4);
+                     ~~~~~~~  ~~~~~~~^~~
+../../lib/ecPinNames.c(24): warning: no newline at end of file [-Wnewline-eof]
+}
+ ^
+../../lib/ecPinNames.c(9): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
+        unsigned int portNum=(pinName>>4);
+                     ^
+3 warnings generated.
+compiling ecPinNames.c...
+../../lib/ecRCC.c(4): warning: no previous extern declaration for non-static variable 'EC_SYSCLK' [-Wmissing-variable-declarations]
+volatile int EC_SYSCLK=16000000;
+             ^
+../../lib/ecRCC.c(4): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+volatile int EC_SYSCLK=16000000;
+         ^
+1 warning generated.
+compiling ecRCC.c...
+../../lib/ecTIM.c(69): warning: implicit conversion loses integer precision: 'unsigned int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+                ARRval = Sys_CLK/PSCval/1000000 * usec;         // 1MHz*usec
+                       ~ ~~~~~~~~~~~~~~~~~~~~~~~^~~~~~
+../../lib/ecTIM.c(61): warning: variable 'Sys_CLK' may be uninitialized when used here [-Wconditional-uninitialized]
+                ARRval = Sys_CLK/PSCval/1000000 * usec;         // 1MHz*usec
+                         ^~~~~~~
+../../lib/ecTIM.c(48): note: initialize the variable 'Sys_CLK' to silence this warning
+        uint32_t Sys_CLK;
+                        ^
+                         = 0
+../../lib/ecTIM.c(96): warning: declaration shadows a local variable [-Wshadow]
+                uint32_t ARRval;
+                         ^
+../../lib/ecTIM.c(81): note: previous declaration is here
+         uint16_t ARRval = PSCval/1000000;                      // 84MHz/1000ms
+                  ^
+../../lib/ecTIM.c(104): warning: declaration shadows a local variable [-Wshadow]
+                uint16_t ARRval;
+                         ^
+../../lib/ecTIM.c(81): note: previous declaration is here
+         uint16_t ARRval = PSCval/1000000;                      // 84MHz/1000ms
+                  ^
+../../lib/ecTIM.c(107): warning: implicit conversion loses integer precision: 'unsigned int' to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
+                ARRval = 10 * msec;             // 10kHz*msec
+                       ~ ~~~^~~~~~
+../../lib/ecTIM.c(98): warning: variable 'Sys_CLK' may be uninitialized when used here [-Wconditional-uninitialized]
+                PSCval = Sys_CLK/100000;                                                                        // 840 or 160   --> f_cnt = 100kHz
+                         ^~~~~~~
+../../lib/ecTIM.c(82): note: initialize the variable 'Sys_CLK' to silence this warning
+                uint32_t Sys_CLK;
+                                ^
+                                 = 0
+../../lib/ecTIM.c(123): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
+        uint32_t IRQn_reg =0;
+                 ^
+7 warnings generated.
+compiling ecTIM.c...
+../../lib/ecEXTI.c(12): warning: In file included from...
+../../lib/ecEXTI.h(35): warning: no newline at end of file [-Wnewline-eof]
+#endif
+      ^
+../../lib/ecEXTI.c(28): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+         SYSCFG->EXTICR[Pin >> 2] &= ~(0xF << ((Pin % 4) * 4)); // Clear 4 bits
+                                  ~~ ^~~~~~~~~~~~~~~~~~~~~~~~~
+../../lib/ecEXTI.c(29): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+   SYSCFG->EXTICR[Pin >> 2] |= (EXTICR_port << ((Pin % 4) * 4)); // Set 4 bits
+                            ~~  ~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+../../lib/ecEXTI.c(21): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
+        int EXTICR_port;
+            ^
+4 warnings generated.
+compiling ecEXTI.c...
+assembling startup_stm32f411xe.s...
+../../lib/ecPWM.c(31): warning: implicit conversion changes signedness: 'unsigned int' to 'int' [-Wsign-conversion]
+        GPIO_init(port, pin, AF);  // AF=2
+        ~~~~~~~~~       ^~~
+../../lib/ecPWM.c(47): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+                port->AFR[pin>>3] |= 0x02<<4*(pin%8);
+                                  ~~ ~~~~^~~~~~~~~~~
+../../lib/ecPWM.c(25): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
+        TIM_TypeDef *TIMx;
+                     ^
+../../lib/ecPWM.c(117): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
+        TIM_TypeDef *TIMx;
+                     ^
+../../lib/ecPWM.c(141): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
+        TIM_TypeDef *TIMx;
+                     ^
+../../lib/ecPWM.c(174): warning: implicit conversion from 'unsigned int' to 'float' may lose precision [-Wimplicit-int-float-conversion]
+        float fclk = fsys / (psc + 1);                                  // fclk=fsys/(psc+1);
+              ~~~~   ~~~~~^~~~~~~~~~~
+../../lib/ecPWM.c(175): warning: implicit conversion from 'uint32_t' (aka 'unsigned int') to 'float' may lose precision [-Wimplicit-int-float-conversion]
+        uint32_t value = (uint32_t)(pulse_width_ms * fclk - 1);                                 // pulse_width_ms *fclk - 1;
+                                    ^~~~~~~~~~~~~~ ~
+../../lib/ecPWM.c(158): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
+        TIM_TypeDef *TIMx;
+                     ^
+../../lib/ecPWM.c(212): warning: implicit conversion from 'unsigned int' to 'float' may lose precision [-Wimplicit-int-float-conversion]
+        float fclk = fsys / (psc + 1);                                  // fclk=fsys/(psc+1);
+              ~~~~   ~~~~~^~~~~~~~~~~
+../../lib/ecPWM.c(213): warning: implicit conversion from 'uint32_t' (aka 'unsigned int') to 'float' may lose precision [-Wimplicit-int-float-conversion]
+        uint32_t value = (uint32_t)( pulse_width_us * fclk - 1);                                        // pulse_width_ms *fclk - 1;
+                                     ^~~~~~~~~~~~~~ ~
+../../lib/ecPWM.c(197): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
+        TIM_TypeDef *TIMx;
+                     ^
+../../lib/ecPWM.c(192): warning: no previous prototype for function 'PWM_pulsewidth_us' [-Wmissing-prototypes]
+void PWM_pulsewidth_us(PinName_t pinName, uint32_t pulse_width_us){
+     ^
+../../lib/ecPWM.c(192): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void PWM_pulsewidth_us(PinName_t pinName, uint32_t pulse_width_us){
+^
+static 
+../../lib/ecPWM.c(237): warning: implicit conversion from 'unsigned int' to 'float' may lose precision [-Wimplicit-int-float-conversion]
+        float value = (TIMx->ARR + 1) * duty;                                                                   // (ARR+1)*dutyRatio + 1               
+                       ~~~~~~~~~~^~~  ~
+../../lib/ecPWM.c(239): warning: implicit conversion turns floating-point number into integer: 'float' to 'uint32_t' (aka 'unsigned int') [-Wfloat-conversion]
+        if(chN == 1)      { TIMx->CCR1 = value; }          //set channel      
+                                       ~ ^~~~~
+../../lib/ecPWM.c(240): warning: implicit conversion turns floating-point number into integer: 'float' to 'uint32_t' (aka 'unsigned int') [-Wfloat-conversion]
+                else if(chN == 1)      { TIMx->CCR2 = value; }   
+                                                    ~ ^~~~~
+../../lib/ecPWM.c(241): warning: implicit conversion turns floating-point number into integer: 'float' to 'uint32_t' (aka 'unsigned int') [-Wfloat-conversion]
+                else if(chN == 1)      { TIMx->CCR3 = value; }
+                                                    ~ ^~~~~
+../../lib/ecPWM.c(242): warning: implicit conversion turns floating-point number into integer: 'float' to 'uint32_t' (aka 'unsigned int') [-Wfloat-conversion]
+                else if(chN == 1)      { TIMx->CCR4 = value; }
+                                                    ~ ^~~~~
+../../lib/ecPWM.c(231): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
+        TIM_TypeDef *TIMx;
+                     ^
+../../lib/ecPWM.c(293): warning: no newline at end of file [-Wnewline-eof]
+}
+ ^
+19 warnings generated.
+compiling ecPWM.c...
+linking...
+Program Size: Code=2700 RO-data=440 RW-data=4 ZI-data=1644  
+FromELF: creating hex file...
+".\Objects\LAB_PWM_RCmotor.axf" - 0 Error(s), 36 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.9.0.pack
+                ARM.CMSIS.5.9.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.6.0
+
+Package Vendor: Keil
+                https://www.keil.com/pack/Keil.STM32F4xx_DFP.2.17.1.pack
+                Keil.STM32F4xx_DFP.2.17.1
+                STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
+   * Component: Startup Version: 2.6.3
+
+<h2>Collection of Component include folders:</h2>
+  ./RTE/_Target_1
+  C:/Users/Zzero1009/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+  C:/Users/Zzero1009/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.6.0
+
+   * Component: Keil::Device:Startup:2.6.3
+      Source file:   MDK/Device/Source/ARM/STM32F411xx_OPT.s
+      Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
+      Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
+      Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f411xe.s
+      Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
+Build Time Elapsed:  00:00:01
+</pre>
+</body>
+</html>

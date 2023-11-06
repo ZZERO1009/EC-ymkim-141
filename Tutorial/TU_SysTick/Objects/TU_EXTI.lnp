@@ -1,0 +1,11 @@
+--cpu=Cortex-M4.fp.sp
+".\objects\tu_systick.o"
+".\objects\ecgpio.o"
+".\objects\ecrcc.o"
+".\objects\ecexti.o"
+".\objects\startup_stm32f411xe.o"
+".\objects\system_stm32f4xx.o"
+--strict --scatter ".\Objects\TU_EXTI.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\TU_EXTI.map" -o .\Objects\TU_EXTI.axf

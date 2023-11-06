@@ -439,7 +439,7 @@
                   <MiscControls></MiscControls>
                   <Define></Define>
                   <Undefine></Undefine>
-                  <IncludePath>..\..\include</IncludePath>
+                  <IncludePath>..\..\lib</IncludePath>
                 </VariousControls>
               </Cads>
               <Aads>
@@ -466,22 +466,22 @@
             <File>
               <FileName>ecGPIO.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\include\ecGPIO.c</FilePath>
+              <FilePath>..\..\lib\ecGPIO.c</FilePath>
             </File>
             <File>
               <FileName>ecGPIO.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\include\ecGPIO.h</FilePath>
+              <FilePath>..\..\lib\ecGPIO.h</FilePath>
             </File>
             <File>
               <FileName>ecRCC.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\include\ecRCC.c</FilePath>
+              <FilePath>..\..\lib\ecRCC.c</FilePath>
             </File>
             <File>
               <FileName>ecRCC.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\include\ecRCC.h</FilePath>
+              <FilePath>..\..\lib\ecRCC.h</FilePath>
             </File>
           </Files>
         </Group>

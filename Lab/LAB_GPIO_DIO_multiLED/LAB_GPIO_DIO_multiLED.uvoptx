@@ -214,7 +214,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\include\ecGPIO.c</PathWithFileName>
+      <PathWithFileName>..\..\lib\ecGPIO.c</PathWithFileName>
       <FilenameWithoutPath>ecGPIO.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -226,7 +226,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\include\ecGPIO.h</PathWithFileName>
+      <PathWithFileName>..\..\lib\ecGPIO.h</PathWithFileName>
       <FilenameWithoutPath>ecGPIO.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -238,7 +238,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\include\ecRCC.c</PathWithFileName>
+      <PathWithFileName>..\..\lib\ecRCC.c</PathWithFileName>
       <FilenameWithoutPath>ecRCC.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -250,7 +250,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\include\ecRCC.h</PathWithFileName>
+      <PathWithFileName>..\..\lib\ecRCC.h</PathWithFileName>
       <FilenameWithoutPath>ecRCC.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>

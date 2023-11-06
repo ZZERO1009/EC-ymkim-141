@@ -214,8 +214,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\LAB_SysTick.c</PathWithFileName>
-      <FilenameWithoutPath>LAB_SysTick.c</FilenameWithoutPath>
+      <PathWithFileName>.\LAB_EXTI_SysTick.c</PathWithFileName>
+      <FilenameWithoutPath>LAB_EXTI_SysTick.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

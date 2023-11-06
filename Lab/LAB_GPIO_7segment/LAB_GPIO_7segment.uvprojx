@@ -49,7 +49,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Objects\</OutputDirectory>
-          <OutputName>.\LED_GPIO_7segment</OutputName>
+          <OutputName>LAB_GPIO_7segment</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -385,9 +385,9 @@
           <GroupName>Source Group 1</GroupName>
           <Files>
             <File>
-              <FileName>LAB_GPIO_7segment.c</FileName>
+              <FileName>LAB_GPIO_7segmentmain.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\LAB_GPIO_7segment.c</FilePath>
+              <FilePath>.\LAB_GPIO_7segmentmain.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -439,7 +439,7 @@
                   <MiscControls></MiscControls>
                   <Define></Define>
                   <Undefine></Undefine>
-                  <IncludePath>..\..\include</IncludePath>
+                  <IncludePath>..\..\lib</IncludePath>
                 </VariousControls>
               </Cads>
               <Aads>
@@ -466,22 +466,22 @@
             <File>
               <FileName>ecGPIO.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\include\ecGPIO.c</FilePath>
+              <FilePath>..\..\lib\ecGPIO.c</FilePath>
             </File>
             <File>
               <FileName>ecGPIO.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\include\ecGPIO.h</FilePath>
+              <FilePath>..\..\lib\ecGPIO.h</FilePath>
             </File>
             <File>
               <FileName>ecRCC.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\include\ecRCC.c</FilePath>
+              <FilePath>..\..\lib\ecRCC.c</FilePath>
             </File>
             <File>
               <FileName>ecRCC.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\include\ecRCC.h</FilePath>
+              <FilePath>..\..\lib\ecRCC.h</FilePath>
             </File>
           </Files>
         </Group>
