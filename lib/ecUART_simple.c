@@ -1,5 +1,13 @@
 #include "ecUART_simple.h"
 #include <math.h>
+/*----------------------------------------------------------------\
+@ Embedded Controller by Young-min Kim - Handong Global University
+Author           : 21900141 Young-Min Kim
+
+Language/ver     : C++ in Keil uVision
+
+Description      : Code for ultra sonic
+/----------------------------------------------------------------*/
 
 // ********************** DO NOT MODIFY HERE ***************************
 // 

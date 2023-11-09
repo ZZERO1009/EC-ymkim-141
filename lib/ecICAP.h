@@ -1,3 +1,13 @@
+/*----------------------------------------------------------------\
+@ Embedded Controller by Young-Keun Kim - Handong Global University
+Author           : 21900141 Young-Min Kim
+
+Language/ver     : C++ in Keil uVision
+
+Description      : Code for ultra sonic
+/----------------------------------------------------------------*/
+
+
 #ifndef __EC_ICAP_H
 #define __EC_ICAP_H
 #include "stm32f411xe.h"

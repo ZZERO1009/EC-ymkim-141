@@ -1,3 +1,12 @@
+/*----------------------------------------------------------------\
+@ Embedded Controller by Young-Keun Kim - Handong Global University
+Author           : 21900141 Young-Min Kim
+
+Language/ver     : C++ in Keil uVision
+
+Description      : Code for naming
+/----------------------------------------------------------------*/
+
 #include "ecPinNames.h"
 
 void ecPinmap(PinName_t pinName, GPIO_TypeDef **GPIOx, unsigned int *pin)

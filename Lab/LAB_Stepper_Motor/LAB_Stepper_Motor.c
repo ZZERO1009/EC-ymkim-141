@@ -1,3 +1,15 @@
+/*----------------------------------------------------------------\
+@ Embedded Controller by Young-Keun Kim - Handong Global University
+Author           : 21900141 Young-Min Kim
+
+Language/ver     : C++ in Keil uVision
+
+Description      : Main Code for stepper motor control
+/----------------------------------------------------------------*/
+
+
+
+
 #include "stm32f4xx.h"
 #include "..\..\lib\ecStepper.h"
 #include "..\..\lib\ecPinNames.h"
@@ -13,7 +25,7 @@ int main(void) {
 	// Initialiization --------------------------------------------------------
 	setup();
 	
-	Stepper_step(10000, 0, FULL);  // (Step : 1024, Direction : 0 or 1, Mode : FULL or HALF)
+	Stepper_step(10000, 0,HALF);  // (Step : 1024, Direction : 0 or 1, Mode : FULL or HALF)
 	
 	// Inifinite Loop ----------------------------------------------------------
 	while(1){;}
@@ -30,13 +42,13 @@ void setup(void)
 	GPIO_init(GPIOC, BUTTON_PIN, 0);           // GPIOC pin13 initialization
 
 	Stepper_init(GPIOB,10,GPIOB,4,GPIOB,5,GPIOB,3); // Stepper GPIO pin initialization
-	Stepper_setSpeed(5);                          //  set stepper motor speed
+	Stepper_setSpeed(1);                          //  set stepper motor speed
 }
 
 void EXTI15_10_IRQHandler(void) {  
 	if (is_pending_EXTI(BUTTON_PIN)) {
 		Stepper_stop();
 		clear_pending_EXTI(BUTTON_PIN); // cleared by writing '1'
-	}
+	} 
 }
 

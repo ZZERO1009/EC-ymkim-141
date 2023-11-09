@@ -1,5 +1,15 @@
 #include "stm32f411xe.h"
 #include "ecGPIO.h"
+/*----------------------------------------------------------------\
+@ Embedded Controller by Young-Keun Kim - Handong Global University
+Author           : 21900141 Young-Min Kim
+
+Language/ver     : C++ in Keil uVision
+
+Description      : Code for stepper motor control
+/----------------------------------------------------------------*/
+
+
 #include "ecSysTick.h"
 #include "ecPinNames.h"
 #ifndef __EC_STEPPER_H

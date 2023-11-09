@@ -1,8 +1,8 @@
 /**
 ******************************************************************************
 * @author  SSSLAB
-* @Mod		 2021-8-12 by YKKIM  	
-* @brief   Embedded Controller:  EC_HAL_for_student_exercise 
+* @Mod		Youngmin 	
+* @brief   Embedded Controller:  for timer
 * 
 ******************************************************************************
 */

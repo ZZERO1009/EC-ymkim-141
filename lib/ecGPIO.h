@@ -1,10 +1,10 @@
 /*----------------------------------------------------------------\
-@ Embedded Controller by Young-Keun Kim - Handong Global University
-Author           : SSS LAB
+@ Embedded Controller by Youngmin - Handong Global University
+
 
 Language/ver     : C++ in Keil uVision
 
-Description      : Distributed to Students for ecLAB
+Description      : for RCC
 /----------------------------------------------------------------*/
 
 

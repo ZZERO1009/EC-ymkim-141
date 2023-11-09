@@ -1,3 +1,12 @@
+/*----------------------------------------------------------------\
+@ Embedded Controller by Youngmin - Handong Global University
+
+
+Language/ver     : C++ in Keil uVision
+
+Description      : Distributed to Students for LAB_GPIO
+/----------------------------------------------------------------*/
+
 #include "stm32f4xx.h"
 #include "ecRCC.h"
 

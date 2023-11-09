@@ -534,14 +534,14 @@
               <FilePath>..\..\lib\ecStepper.c</FilePath>
             </File>
             <File>
-              <FileName>ecPinNames.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\lib\ecPinNames.h</FilePath>
-            </File>
-            <File>
               <FileName>ecStepper.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\lib\ecStepper.h</FilePath>
+            </File>
+            <File>
+              <FileName>ecPinNames.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\lib\ecPinNames.h</FilePath>
             </File>
             <File>
               <FileName>ecPWM.h</FileName>
