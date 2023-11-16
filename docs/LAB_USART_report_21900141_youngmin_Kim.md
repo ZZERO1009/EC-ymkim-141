@@ -16,6 +16,7 @@ In this lab, we will learn how to configure and use ‘USART(Universal synchrono
 - **Mission 1**: Control LED(LD2) of each other MCU.
 - **Mission 2**: Run DC motors with Bluetooth
 
+![image](https://github.com/ZZERO1009/EC-ymkim-141/assets/144536736/95086622-3ff9-4c73-b17d-ccf734844d88)
 
 
 ### Requirement
@@ -27,279 +28,419 @@ In this lab, we will learn how to configure and use ‘USART(Universal synchrono
 
 
 * Actuator/Sensor/Others:
-  * 3Stepper Motor 28BYJ-48
-  * Motor Driver ULN2003
-  * breadboard
+  * DC motor, DC motor driver(L9110s),
+  * Bluetooth Module(HC-06),
 
 #### Software
  * Keil uVision, CMSIS, EC_HAL library
 
 
 
-## Problem 1 : Stepper Motor
-
-#### Hardware Connection
-
-![](C:\Users\Zzero1009\사진\스크린샷\스크린샷 2023-11-09 155401.png)
-
-#### Stepper Motor Sequence
-
-Using unipolar stepper motor for this lab
-
-Making each output data depending on the below sequence.
-
-##### Full-stepping sequence
-
-![image-20231109155923463](C:\Users\Zzero1009\AppData\Roaming\Typora\typora-user-images\image-20231109155923463.png)
-
-
-
-![image-20231109202430144](C:\Users\Zzero1009\AppData\Roaming\Typora\typora-user-images\image-20231109202430144.png)
-
-##### Half-stepping sequence
-
-![](C:\Users\Zzero1009\사진\스크린샷\스크린샷 2023-11-09 185321.png)
-
-![](C:\Users\Zzero1009\사진\스크린샷\스크린샷 2023-11-09 185134.png)
-
-
-
-### Finite State Machine
-
-Drawing a State Table for Step Sequence, Use Moore FSM for this case.
-
-##### Full-Stepping Sequence
-
-![](C:\Users\Zzero1009\사진\스크린샷\스크린샷 2023-11-09 191134.png)
-
-##### Half-Stepping Sequence
-
-![스크린샷 2023-11-09 191155](C:\Users\Zzero1009\사진\스크린샷\스크린샷 2023-11-09 191155.png)
-
-
-
-# Problem 2: Firmware Programming
-
+## Problem 1 : EC HAL library
 #### Create HAL library
 
-##### ecStepper.h
+##### ecUART_student.h
 
 ```c++
-// Initialize with 4 pins
-// ( A, B,  AN,  BN)
-void Stepper_init(GPIO_TypeDef* port1, int pin1, GPIO_TypeDef* port2, int pin2, GPIO_TypeDef* port3, int pin3, GPIO_TypeDef* port4, int pin4);
+#ifndef __EC_USART_H
+#define __EC_USART_H
 
-//or   using ecPinNames.h 
-void Stepper_init(PinName_t A, PinName_t B,  PinName_t AN, PinName_t BN);
+#include <stdio.h>
+#include "stm32f411xe.h"
+#include "ecGPIO.h"
+#include "ecRCC.h"
+
+#define POL 0
+#define INT 1
+
+// You can modify this
+#define BAUD_9600	9600
+#define BAUD_19200	19200
+#define BAUD_38400  	38400
+#define BAUD_57600	57600
+#define BAUD_115200 	115200
+#define BAUD_921600 	921600
 
 
-// whatSpeed [rev/min]
-void Stepper_setSpeed(long whatSpeed);
+// ********************** USART 2 (USB) ***************************
+// PA_2 = USART2_TX
+// PA_3 = USART2_RX
+// Alternate function(AF7), High Speed, Push pull, Pull up
+// APB1
+// **********************************************************
 
-// Run for n Steps
-void Stepper_step(uint32_t steps, uint32_t direction, uint32_t mode); 
+// ********************** USART 1 ***************************
+// PA_9 = USART1_TX (default)	// PB_6  (option)
+// PA_10 = USART1_RX (default)	// PB_3 (option)
+// APB2
+// **********************************************************
 
-// Immediate Stop.
-void Stepper_stop(void);
+// ********************** USART 6 ***************************
+// PA_11 = USART6_TX (default)	// PC_6  (option)
+// PA_12 = USART6_RX (default)	// PC_7 (option)
+// APB2
+// **********************************************************
+
+// Configuration UART 1, 2 using default pins 
+void UART1_init(void);
+void UART2_init(void);	
+void UART1_baud(uint32_t baud);
+void UART2_baud(uint32_t baud);
+
+// USART write & read
+void USART1_write(uint8_t* buffer, uint32_t nBytes);
+void USART2_write(uint8_t* buffer, uint32_t nBytes);
+uint8_t USART1_read(void);										
+uint8_t USART2_read(void);	
+
+// RX Inturrupt Flag USART1,2
+uint32_t is_USART1_RXNE(void);
+uint32_t is_USART2_RXNE(void);
+
+// private functions
+void USART_write(USART_TypeDef* USARTx, uint8_t* buffer, uint32_t nBytes);
+void USART_init(USART_TypeDef* USARTx, uint32_t baud);  		
+void UART_baud(USART_TypeDef* USARTx, uint32_t baud);											
+uint32_t is_USART_RXNE(USART_TypeDef * USARTx);
+uint8_t USART_read(USART_TypeDef * USARTx);										
+void USART_setting(USART_TypeDef* USARTx, GPIO_TypeDef* GPIO_TX, int pinTX, GPIO_TypeDef* GPIO_RX, int pinRX, uint32_t baud); 
+void USART_delay(uint32_t us);  
+
+#endif
+
 ```
 
-
-##### ecStepper.c
+##### ecUART_student.c
 
 ```c++
+#include "ecUART_student.h"
+#include <math.h>
 
-//State number 
-#define S0 0 // to s7->7
+// ********************** DO NOT MODIFY HERE ***************************
+// 
+// Implement a dummy __FILE struct, which is called with the FILE structure.
+//#ifndef __stdio_h
+struct __FILE {
+    //int dummy;
+		int handle;
 
-
-
-// Stepper Motor function
-uint32_t direction = 1; 
-uint32_t step_delay = 100; 
-uint32_t step_per_rev = 64*32;
-	 
-
-// Stepper Motor variable
-volatile Stepper_t myStepper; 
-
-
-//FULL stepping sequence  - FSM
-typedef struct {
-	uint8_t out;
-  	uint32_t next[2];
-} State_full_t;
-
-State_full_t FSM_full[4] = {  	// 1010 , 0110 , 0101 , 1001
- 	{0b1100,{S1,S3}},
- 	{0b0110,{S2,S0}},
- 	{0b0011,{S3,S1}},
- 	{0b1001,{S0,S2}},
 };
 
-//HALF stepping sequence
-typedef struct {
-	uint8_t out;
-  	uint32_t next[2];
-} State_half_t;
+FILE __stdout;
+FILE __stdin;
+//#endif
 
-State_half_t FSM_half[8] = { // 1000 , 1010 , 0010 , 0110 , 0100 , 0101, 0001, 1001
- 	{0b1000,{S1,S7}},
-	{0b1100,{S2,S0}},
-	{0b0100,{S3,S1}},
-	{0b0110,{S4,S2}},
-	{0b0010,{S5,S3}},
-	{0b0011,{S6,S4}},
-	{0b0001,{S7,S5}},
-	{0b1000,{S0,S6}},
-};
+// Retarget printf() to USART2
+int fputc(int ch, FILE *f) { 
+  uint8_t c;
+  c = ch & 0x00FF;
+  USART_write(USART2, (uint8_t *)&c, 1);
+  return(ch);
+}
 
-
-
-void Stepper_init(GPIO_TypeDef* port1, int pin1, GPIO_TypeDef* port2, int pin2, GPIO_TypeDef* port3, int pin3, GPIO_TypeDef* port4, int pin4){
-	 
-	//  GPIO Digital Out Initiation
-	myStepper.port1 = port1;
-	myStepper.pin1  = pin1;
-	// Repeat for port2,pin3,pin4 
-
-	
-	//  GPIO Digital Out Initiation
-	// No pull-up Pull-down , Push-Pull, Fast	
-
-	//pin1-port1
-	GPIO_init(port1,pin1,1);
-	GPIO_pupd(port1, pin1, 00);
-	GPIO_otype(port1, pin1, 0);
-	GPIO_ospeed(port1, pin1, 2);
-	// same sequence to other pins
+// Retarget getchar()/scanf() to USART2  
+int fgetc(FILE *f) {  
+  uint8_t rxByte;
+  rxByte = USART_read(USART2);
+  return rxByte;
 }
 
 
-void Stepper_pinOut (uint32_t state, uint32_t mode){	
-   	if (mode == FULL){         // FULL mode
-		GPIO_write(myStepper.port1, myStepper.pin1, (FSM_full[state].out & 0b1000) >> 3);
-  		// Repeat for pin2~port4 
-		GPIO_write(myStepper.port2, myStepper.pin2, (FSM_full[state].out & 0b0100) >> 2);
-		GPIO_write(myStepper.port3, myStepper.pin3, (FSM_full[state].out & 0b0010) >>	1);
-		GPIO_write(myStepper.port4, myStepper.pin4, (FSM_full[state].out & 0b1001) >>	0		);
-	}	else if (mode == HALF){    // HALF mode
-		GPIO_write(myStepper.port1, myStepper.pin1, (FSM_half[state].out & 0b1000) >> 3);
-  		// Repeat for pin2~port4 
-		GPIO_write(myStepper.port2, myStepper.pin2, (FSM_half[state].out & 0b0100) >> 2);
-		GPIO_write(myStepper.port3, myStepper.pin3, (FSM_half[state].out & 0b0010) >>	1);
-		GPIO_write(myStepper.port4, myStepper.pin4, (FSM_half[state].out & 0b1001) >>	0	);
+/*================ private functions ================*/
+void USART_write(USART_TypeDef * USARTx, uint8_t *buffer, uint32_t nBytes) {
+	// TXE is set by hardware when the content of the TDR 
+	// register has been transferred into the shift register.
+	int i;
+	for (i = 0; i < nBytes; i++) {
+		// wait until TXE (TX empty) bit is set
+		while (!(USARTx->SR & USART_SR_TXE));  
+		// Writing USART_DR automatically clears the TXE flag 	
+		USARTx->DR = buffer[i] & 0xFF;
+		USART_delay(300);
+	}
+	// wait until TC bit is set
+	while (!(USARTx->SR & USART_SR_TC));		
+	// TC bit clear
+	USARTx->SR &= ~USART_SR_TC;	
+
+}  
+ 
+uint32_t is_USART_RXNE(USART_TypeDef * USARTx){
+	return (USARTx->SR & USART_SR_RXNE);
+}
+
+
+uint8_t USART_read(USART_TypeDef * USARTx){
+	// Wait until RXNE (RX not empty) bit is set by HW -->Read to read
+	while ((USARTx->SR & USART_SR_RXNE) != USART_SR_RXNE);  
+	// Reading USART_DR automatically clears the RXNE flag 
+	return ((uint8_t)(USARTx->DR & 0xFF)); 
+}
+
+void USART_setting(USART_TypeDef* USARTx, GPIO_TypeDef* GPIO_TX, int pinTX, GPIO_TypeDef* GPIO_RX, int pinRX, uint32_t baud){
+//1. GPIO Pin for TX and RX	
+	// Enable GPIO peripheral clock 	 
+	// Alternative Function mode selection for Pin_y in GPIOx
+	// AF, Push-Pull, No PUPD, High Speed
+	GPIO_init(GPIO_TX, pinTX, AF);
+	GPIO_otype(GPIO_TX, pinTX, 0);
+	GPIO_pupd(GPIO_TX, pinTX, 00);		
+	GPIO_ospeed(GPIO_TX, pinTX, HIGH);						
+	
+	GPIO_init(GPIO_RX, pinRX, AF);
+	GPIO_otype(GPIO_RX, pinRX, 0);
+	GPIO_pupd(GPIO_RX, pinRX, 00);
+	GPIO_ospeed(GPIO_RX, pinRX, HIGH);
+	
+	// Set Alternative Function Register for USARTx.	
+	// AF7 - USART1,2 
+	// AF8 - USART6 	 
+	if (USARTx == USART6){ 
+		// USART_TX GPIO AFR
+		if (pinTX < 8) GPIO_TX->AFR[0] |= 8 << (4*pinTX);
+		else 					 GPIO_TX->AFR[1] |= 8 << (4*(pinTX-8));
+		// USART_RX GPIO AFR
+		if (pinRX < 8) GPIO_RX->AFR[0] |= 8 << (4*pinRX); 
+		else 					 GPIO_RX->AFR[1] |= 8 << (4*(pinRX-8));
+	}
+	else{	//USART1,USART2
+		// USART_TX GPIO AFR
+		if (pinTX < 8) GPIO_TX->AFR[0] |= 7 << (4*pinTX);
+		else 					 GPIO_TX->AFR[1] |= 7 << (4*(pinTX-8));
+		// USART_RX GPIO AFR
+		if( pinRX < 8) GPIO_RX->AFR[0] |= 7 << (4*pinRX);
+		else 					 GPIO_RX->AFR[1] |= 7 << (4*(pinRX-8));
+	}
+
+	
+//2. USARTx (x=2,1,6) configuration	
+	// Enable USART peripheral clock 
+	if (USARTx == USART1)
+		RCC->APB2ENR |= RCC_APB2ENR_USART1EN; 	// Enable USART 1 clock (APB2 clock: AHB clock = 84MHz)	
+	else if(USARTx == USART2)
+		RCC->APB1ENR |= RCC_APB1ENR_USART2EN;  	// Enable USART 2 clock (APB1 clock: AHB clock/2 = 42MHz)
+	else
+		RCC->APB2ENR |= RCC_APB2ENR_USART6EN;  	// Enable USART 6 clock (APB2 clock: AHB clock = 84MHz)
+	
+	// Disable USARTx. 
+	USARTx->CR1  &= ~USART_CR1_UE; 						// USART disable
+	 
+	// No Parity / 8-bit word length / Oversampling x16 
+	USARTx->CR1&= ~USART_CR1_M;   		// No parrity bit
+	USARTx->CR1&= ~USART_CR1_PCE;       	// M: 0 = 8 data bits, 1 start bit    
+	USARTx->CR1 &= ~USART_CR1_OVER8;  	// 0 = oversampling by 16 (to reduce RF noise)	 
+	// Configure Stop bit
+	USARTx->CR2 &= ~USART_CR2_STOP;  		// 1 stop bit																 
+
+	// CSet Baudrate to 9600 using APB frequency (42MHz)
+	// If oversampling by 16, Tx/Rx baud = f_CK / (16*USARTDIV),  
+	// If oversampling by 8,  Tx/Rx baud = f_CK / (8*USARTDIV)
+	// USARTDIV = 42MHz/(16*9600) = 237.4375
+
+	UART_baud(USARTx, baud);
+
+	// Enable TX, RX, and USARTx 
+	USARTx->CR1 |= (USART_CR1_RE | USART_CR1_TE);   	// Transmitter and Receiver enable
+	USARTx->CR1 |= USART_CR1_UE; 										// USART enable
+	
+	
+// 3. Read USARTx Data (Interrupt)	
+	// Set the priority and enable interrupt
+	USARTx->CR1 |= USART_CR1_RXNEIE;       			// Received Data Ready to be Read Interrupt
+	if (USARTx == USART1){
+		NVIC_SetPriority(USART1_IRQn, 1);      		// Set Priority to 1
+		NVIC_EnableIRQ(USART1_IRQn);             	// Enable interrupt of USART2 peripheral
+	}
+	else if (USARTx == USART2){
+		NVIC_SetPriority(USART2_IRQn, 1);      		// Set Priority to 1
+		NVIC_EnableIRQ(USART2_IRQn);             	// Enable interrupt of USART2 peripheral
+	}
+	else {																			// if(USARTx==USART6)
+		NVIC_SetPriority(USART6_IRQn, 1);      		// Set Priority to 1
+		NVIC_EnableIRQ(USART6_IRQn);            	// Enable interrupt of USART2 peripheral
+	}
+	USARTx->CR1 |= USART_CR1_UE; 							// USART enable
+} 
+
+
+void UART_baud(USART_TypeDef* USARTx, uint32_t baud){
+	// Disable USARTx. 
+	USARTx->CR1  &= ~USART_CR1_UE; 						// USART disable
+	USARTx->BRR = 0;
+	
+// Configure Baud-rate 
+	float fCK = 84000000;                                    // if(USARTx==USART1 || USARTx==USART6), APB2
+	if(USARTx == USART2) fCK =fCK/2;      // APB1
+
+// Method 1
+	float USARTDIV = (float) fCK/16/baud;
+	uint32_t mantissa = (uint32_t)USARTDIV;
+	uint32_t fraction = round((USARTDIV-mantissa)*16);
+	USARTx->BRR |= (mantissa<<4|fraction);
+	
+	// Enable TX, RX, and USARTx 
+	USARTx->CR1 |= USART_CR1_UE;
+
+}
+
+void USART_delay(uint32_t us) {
+   uint32_t time = 100*us/7;    
+   while(--time);   
+}
+	
+
+/*================ Use functions ================*/
+void UART1_init(void){
+	// ********************** USART 1 ***************************
+	// PA_9 = USART1_TX (default)	// PB_6  (option)
+	// PA_10 = USART1_RX (default)	// PB_3 (option)
+	// APB2
+	// **********************************************************
+	USART_setting(USART1, GPIOA, 9, GPIOA, 10, 9600);
+}
+void UART2_init(void){
+	// ********************** USART 2 ***************************
+	// PA2 = USART2_TX
+	// PA3 = USART2_RX
+	// Alternate function(AF7), High Speed, Push pull, Pull up
+	// **********************************************************
+	USART_setting(USART2, GPIOA, 2, GPIOA, 3, 9600);
+}
+
+void UART1_baud(uint32_t baud){
+	UART_baud(USART1, baud);
+}
+void UART2_baud(uint32_t baud){
+	UART_baud(USART2, baud);
+}
+
+void USART1_write(uint8_t* buffer, uint32_t nBytes){
+	USART_write(USART1, buffer, nBytes);
+}
+
+void USART2_write(uint8_t* buffer, uint32_t nBytes){
+	USART_write(USART2, buffer, nBytes);
+}
+uint8_t USART1_read(void){
+	return USART_read(USART1);
+}	
+
+uint8_t USART2_read(void){
+	return USART_read(USART2);
+}
+
+uint32_t is_USART1_RXNE(void){
+	return is_USART_RXNE(USART1);
+}
+uint32_t is_USART2_RXNE(void){
+	return is_USART_RXNE(USART2);
+}
+
+```
+# Problem 2:  Communicate MCU1-MCU2 using RS-232
+
+![image](https://github.com/ZZERO1009/EC-ymkim-141/assets/144536736/41521997-039c-42f8-82b3-c5868054df29)
+
+##### code
+
+```c++
+/**
+******************************************************************************
+* @author ECLAB
+* @Mod       2023-11-16 by YMKIM
+* @brief   Embedded Controller:  USART LED CONNECT
+*
+******************************************************************************
+*/
+#include "..\..\lib\ecHAL.h"
+
+#define LED_PA_5
+
+static volatile uint8_t PC_Data = 0;
+static volatile uint8_t BT_Data = 0;
+uint8_t PC_string[]="Loop:\r\n";
+
+
+void setup(void){
+	RCC_PLL_init();
+	SysTick_init();
+	
+GPIO_init(GPIOA,5,1);
+	
+	// USART2: USB serial init
+	UART2_init();
+	UART2_baud(BAUD_38400);
+
+	// USART1: BT serial init 
+	UART1_init();
+	UART1_baud(BAUD_38400);
+}
+
+int main(void){	
+	setup();
+	printf("MCU Initialized\r\n");	
+	while(1){
+		switch(BT_Data){
+			
+		case 'H':
+
+case 'h':
+
+GPIO_write(GPIOA,5,1);
+
+break;
+
+case 'L':
+
+case 'l':
+
+GPIO_write(GPIOA,5,0);
+
+break;
+
+      
 	}
 }
+	}
 
-
-void Stepper_setSpeed (long whatSpeed){      // rpm [rev/min]
-		step_delay = 60000/(whatSpeed*64*32);//YOUR CODE   // Convert rpm to  [msec] delay
+void USART2_IRQHandler(){          		// USART2 RX Interrupt : Recommended
+	if(is_USART2_RXNE()){
+		PC_Data = USART2_read();		// RX from UART2 (PC)
+		USART1_write(&PC_Data,1);		// TX to USART2	 (PC)	 Echo of keyboard typing		
+		USART2_write(&PC_Data,1);
+	}
 }
+void USART1_IRQHandler(){          		// USART2 RX Interrupt : Recommended
+	if(is_USART1_RXNE()){
+		BT_Data = USART1_read();		// RX from UART1 (BT)		
+		if (BT_Data != '\0'){
+		printf("MCU_1 received : %c \r\n", BT_Data); // TX to USART2(PC)
+		}
 
-
-void Stepper_step(uint32_t steps, uint32_t direction, uint32_t mode){
-	 uint32_t state = 0;
-	 myStepper._step_num = steps;
-
-	 for(; myStepper._step_num > 0; myStepper._step_num--){ // run for step size
-		// YOUR CODE                        // delay (step_delay); 			
-			delay_ms(step_delay);
-	    	if (mode == FULL) 		 												
-			state = FSM_full[state].next[direction];// if full, use full stm and direction
-		else if (mode == HALF) 
-			state = FSM_half[state].next[direction];// if half, use half stm and direction		
-		delay_ms(step_delay);
-		Stepper_pinOut(state, mode);
-   	}
+	}
 }
-
-
-void Stepper_stop (void){ 
-    	myStepper._step_num = 0;    
-	// All pins(A,AN,B,BN) set as DigitalOut '0'
-	// by using &, all goes to zero, stop motor
-FSM_full[4].out &= 0b0000;
-FSM_half[8].out &= 0b0000;
-
-}
-
 ```
 
+### Result
+https://youtu.be/N30-rabblsc
 
+this link is for led
 
-####  Procedure
+# Problem 3: Control DC Motor via Bluetooth
 
-Connect the MCU to the motor driver and the stepper motor, run for full and half, in both direction.
-Test maximum and minimum speed.
+#### Control DC Motor via Bluetooth
+![image](https://github.com/ZZERO1009/EC-ymkim-141/assets/144536736/2a710298-0da9-462e-a1ca-0d35ab5be8a0)
+![image](https://github.com/ZZERO1009/EC-ymkim-141/assets/144536736/dc244d7b-255b-4e16-adad-3ef4b213243b)
+![image](https://github.com/ZZERO1009/EC-ymkim-141/assets/144536736/92bc8fde-1e14-471b-a691-87d1753a173b)
 
-
-
-#### Configuration 
-
-| Digital Out                                                  | SysTick |
-| :----------------------------------------------------------- | :-----: |
-| PB10, PB4, PB5, PB3 <br />NO Pull-up Pull-down <br />Push-Pull <br />Fast | delay() |
-
-
-
-
-
-#### Discussion
-
-1. **Find out the trapezoid-shape velocity profile for a stepper motor. When is this profile necessary?**
-   The  Trapezoid-shape velocity profile expands the range of operation that  motor can start on.
-    Linear state, power of the motor for the input pulse may be stably  transmitted or reduced.
-
-2. **How would you change the code more efficiently for micro-stepping control? You don’t have to code this but need to explain your strategy.**
-
-   Reduce vibration by increasing rotor pole or stator  phase. 
-   
-
-
-
-#### Main code
+##### code
 
 ```c++
 
-	
-int main(void) { 
-	// Initialiization --------------------------------------------------------
-	setup();
-	
-	Stepper_step(10000, 0,FULL);  // (Step : 1024, Direction : 0 or 1, Mode : FULL or HALF)
-	
-	// Inifinite Loop ----------------------------------------------------------
-	while(1){;}
-}
-
-// Initialiization 
-void setup(void)
-{	
-	
-	RCC_PLL_init();                                 // System Clock = 84MHz
-	SysTick_init();                                 // Systick init
-	
-	EXTI_init(GPIOC,BUTTON_PIN,FALL,0);             // External Interrupt Setting
-	GPIO_init(GPIOC, BUTTON_PIN, 0);           // GPIOC pin13 initialization
-
-	Stepper_init(GPIOB,10,GPIOB,4,GPIOB,5,GPIOB,3); // Stepper GPIO pin initialization
-	Stepper_setSpeed(29);                          //  set stepper motor speed
-}
-void EXTI15_10_IRQHandler(void) {  // This code is use for stop motor by using button.
-	if (is_pending_EXTI(BUTTON_PIN)) {
-		Stepper_stop();
-		clear_pending_EXTI(BUTTON_PIN); // cleared by writing '1'
-	} 
-}
-
-   
 ```
-
-
 
 ### Result
 
-Full-Half and both direction result video: https://youtu.be/dnJqaDnRjqg
-Max and minimum speed result video: https://youtu.be/cLtEtaLqBnk
+
 
 
