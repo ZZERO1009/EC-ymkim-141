@@ -437,10 +437,179 @@ this link is for led
 
 ```c++
 
+/**
+******************************************************************************
+* @author  SSSLAB
+* @Mod       2023-11-17 by YKKIM
+* @brief   Embedded Controller:  USART RC CAR
+*
+******************************************************************************
+*/
+
+
+// USART2 : MCU to PC via usb 
+// USART1 : MCU to MCU2
+#include "..\..\lib\ecHAL.h"
+#define PWM1 PA_0
+#define PWM2 PA_6
+
+uint8_t mcu2Data = 0;
+uint8_t pcData = 0;
+int indx =0;
+int maxBuf=10;
+uint8_t buffer[100]={0,};
+uint8_t buffer2 = '\r\n';
+int endChar = 13;
+
+int dir =0;
+int Right_DC_velocity =0;
+int Left_DC_velocity =0;
+int MT_angle = 3;
+float duty = 0.f;
+
+void RC_control(char cmd);
+void setup(void);
+
+int main(void) {
+   // Initialiization --------------------------------------------------------
+   setup();
+   printf("Hello Nucleo\r\n");
+	 delay_ms(500);
+
+ 
+   // Inifinite Loop ----------------------------------------------------------
+   while (1){
+       
+     if(dir ==0){
+     printf("RC car: DIR:%d[deg] VEL:%d[%%] FWD\r\n\r\n",(MT_angle-1)*45,Right_DC_velocity*25);
+		 printf("RC car: DIR:%d[deg] VEL:%d[%%] FWD\r\n\r\n",(MT_angle-1)*45,Left_DC_velocity*25);
+     }else if(dir ==1)
+     printf("RC car: DIR:%d[deg] VEL:%d[%%] BWD\r\n\r\n",(MT_angle-1)*45,Right_DC_velocity*25);
+		 printf("RC car: DIR:%d[deg] VEL:%d[%%] BWD\r\n\r\n",(MT_angle-1)*45,Left_DC_velocity*25);
+		 delay_ms(1000);
+	}
+}
+
+// Initialiization 
+void setup(void)
+{
+  RCC_PLL_init();
+  SysTick_init();
+   
+  // USART congfiguration
+  
+	UART2_init();
+	UART2_baud(BAUD_9600);
+	USART_setting(USART1, GPIOA,9,GPIOA,10, BAUD_9600);
+	//PWM setting
+	PWM_init(PWM1);  //RC servo angle //TIM2 - ch2
+	PWM_init(PWM2); //DC Motor Speed //TIM2 - ch3
+	
+	PWM_period_ms(PWM1, 20);	 //TIMER 2 period
+	PWM_duty(PWM1,0);					//DC default
+	PWM_duty(PWM2,0);			//servo default
+
+	
+	//GPIO output setting
+	GPIO_init(GPIOA,0,OUTPUT);
+	GPIO_init(GPIOA,6,OUTPUT);	
+	
+
+}
+
+void RC_control(char cmd)
+{
+	switch(cmd){
+		case 'I' : 
+			Right_DC_velocity	++; 
+			Left_DC_velocity	++; 
+				break;
+		case 'M' : 
+			Right_DC_velocity--; 
+			Left_DC_velocity--; 
+				break;
+		case 'R' : MT_angle++;    break;
+		case 'L' : MT_angle--;    break;
+		case 'W' : dir =0;				break;
+		case 'S' : dir =1;				break;
+		case 'X' : 
+				Right_DC_velocity = 0;	
+				Left_DC_velocity = 0;
+		MT_angle = 3; break;
+		}
+	
+	if((Right_DC_velocity < 0)&&(Left_DC_velocity < 0))
+		{
+		Right_DC_velocity = 0;
+		Left_DC_velocity = 0;
+	
+	}else if((Right_DC_velocity > 4)&&(Left_DC_velocity > 4)){
+		Right_DC_velocity  = 4;
+		Left_DC_velocity  = 4;			
+	}
+	if		 (MT_angle < 1) MT_angle = 1;
+  else if(MT_angle > 5) MT_angle = 5;
+	
+	GPIO_write(GPIOA,11,dir);
+	GPIO_write(GPIOA,12,dir);
+		
+	if(dir == 0){
+		
+		duty = 0.25 * (float)Right_DC_velocity;
+	}
+  else if(dir == 1){
+		
+		duty = 1.0 - 0.25 * (float)Right_DC_velocity;
+	}
+	
+	PWM_duty(PWM2,duty);			
+	PWM_duty(PWM1,0.025*MT_angle);	
+	
+}
+
+
+//FIX this breciecve 
+void USART1_IRQHandler(){      //USART1 INT 
+   if(is_USART_RXNE(USART1)){
+      mcu2Data = USART_read(USART1);
+			USART_write(USART1,&mcu2Data,1);
+      if(mcu2Data==endChar) {
+				 RC_control(buffer[0]);
+				 USART_write(USART1,&buffer2,1);
+				 buffer[0] = NULL;
+         indx = 0;
+				
+      }
+      else{
+         if(indx>maxBuf){
+            indx =0;
+            memset(buffer, 0, sizeof(char) * maxBuf);
+            printf("ERROR : Too long string\r\n");
+         }
+         buffer[indx] = mcu2Data;
+         indx++;
+				 
+      }
+   }
+}
+
+void USART2_IRQHandler(){      //USART2 INT 
+   if(is_USART_RXNE(USART2)){
+      pcData = USART_read(USART2);
+      USART_write(USART1,&pcData,1);   // transmit char to USART1
+      printf("%c",pcData);             // echo to sender(pc)
+      
+      if(pcData==endChar){
+         printf("\r\n");               // to change line on PC display
+      }
+   }
+}
+
 ```
 
 ### Result
+https://youtu.be/N30-rabblsc
 
-
+for rc car
 
 
