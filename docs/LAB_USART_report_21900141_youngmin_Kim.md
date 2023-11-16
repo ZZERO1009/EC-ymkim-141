@@ -4,7 +4,7 @@
 
 **Author/Partner:** 21900141 Youngmin Kim
 
-**Github**:  
+**Github**:  https://github.com/ZZERO1009/EC-ymkim-141/blob/bb3ff54e9b8d058eb48a4e1386a6f46125f68621/docs/LAB_USART_report_21900141_youngmin_Kim.md
 
 
 
