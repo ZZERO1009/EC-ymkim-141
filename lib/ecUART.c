@@ -1,4 +1,14 @@
-#include "ecUART_student.h"
+/**
+******************************************************************************
+* @author  SSSLAB
+* @Mod       2023-11-17 by YKKIM
+* @brief   Embedded Controller:  USART RC CAR
+*
+******************************************************************************
+*/
+
+
+#include "ecUART.h"
 #include <math.h>
 
 // ********************** DO NOT MODIFY HERE ***************************
