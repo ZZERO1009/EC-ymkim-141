@@ -20,7 +20,7 @@ MCU:  				STM32F411RE, Nucleo-64
 
 
 
-[TOC]
+
 
 ## GPIO Digital In/Out 
 
