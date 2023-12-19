@@ -9,7 +9,7 @@
 
 
 
-## Introduction
+## 1. Introduction
 
 In this project design lab, I aimed to create a machine that allows introverted individuals, who find it difficult to seek help from others, to safely exercise for bulking up through working out. The project is titled "Dream Of Meruchi," encapsulating the meaning that a shy and introverted anchovy wishes to become a mackerel through exercise.
 
@@ -22,19 +22,25 @@ In this project design lab, I aimed to create a machine that allows introverted 
 
 
 * Actuator/Sensor/Others:
-  * DC motor, DC motor driver(L9110s),
+  * DC motor X2,
   * Bluetooth Module(HC-06),
-  * IR sensor() X2,
-  * Ultra sonic sensor.
-  * Motor driver
+  * IR sensor(TCRT 5000) X2,
+  * Ultra sonic sensor(HC-SR04),
+  * Motor driver(L9110s)
 
 #### Software
- * Keil uVision, CMSIS, EC_HAL library
+ * Keil uVision, Tera term
 
 
 
-## Problem 1 : EC HAL library
-#### Create HAL library
+## 2. Problem 
+### Problem description
+This exercise machine has three modes. 
+
+easily recognizable by names inspired by superhero comics: Captain America Mode, Alfred Mode, Jarvis Mode, and 
+
+an "Emergency Mode" that can be activated from any mode.
+	
 
 ##### ecUART_student.h
 
