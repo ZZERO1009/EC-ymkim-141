@@ -4,7 +4,7 @@
 
 **Author/Partner:** 21900141 Youngmin Kim
 
-**Github**:  
+**Github**: https://github.com/ZZERO1009/EC-ymkim-141/blob/03833c5bc1b0d9ac569ac70eb4a3f6e86259d95a/docs/LAB_EC_Design_Problem_21900141_%EA%B9%80%EC%98%81%EB%AF%BC.md
 
 
 
