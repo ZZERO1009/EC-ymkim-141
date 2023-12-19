@@ -458,3 +458,16 @@ void EXTI15_10_IRQHandler(void) {
 ```
 
 ## 5. Result
+
+https://youtu.be/AUOLD_tF8lM
+![KakaoTalk_20231219_192004524_01](https://github.com/ZZERO1009/EC-ymkim-141/assets/144536736/e830283a-041b-4dd2-8dd3-a8cbe7137fae)
+![KakaoTalk_20231219_192004524_02](https://github.com/ZZERO1009/EC-ymkim-141/assets/144536736/7cea9ef0-3b25-486b-b44e-b4fe8fe4f962)
+![KakaoTalk_20231219_192004524_03](https://github.com/ZZERO1009/EC-ymkim-141/assets/144536736/24ced7e2-f3c4-401f-b6e3-fc0e83365ef4)
+![KakaoTalk_20231219_192004524](https://github.com/ZZERO1009/EC-ymkim-141/assets/144536736/24c50d8f-bc67-4193-8379-c798b44646b2)
+
+So sadly, project is not worked.
+
+**Printf was not working on tera term**
+
+check that it was same code, and was worked on other lab code.  Because starting code was that, entire was not worked
+
