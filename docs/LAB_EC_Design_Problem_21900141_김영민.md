@@ -11,13 +11,7 @@
 
 ## Introduction
 
-In this lab, we will learn how to configure and use ‘USART(Universal synchronous asynchronous receiver transmitter)’ of MCU. Then, we will learn how to communicate between your PC and MCU and MCU to another MCU with wired serial communication.
-
-- **Mission 1**: Control LED(LD2) of each other MCU.
-- **Mission 2**: Run DC motors with Bluetooth
-
-![image-20231117042808565](C:\Users\Zzero1009\AppData\Roaming\Typora\typora-user-images\image-20231117042808565.png)
-
+In this project design lab, I aimed to create a machine that allows introverted individuals, who find it difficult to seek help from others, to safely exercise for bulking up through working out. The project is titled "Dream Of Meruchi," encapsulating the meaning that a shy and introverted anchovy wishes to become a mackerel through exercise.
 
 ### Requirement
 
@@ -30,6 +24,9 @@ In this lab, we will learn how to configure and use ‘USART(Universal synchrono
 * Actuator/Sensor/Others:
   * DC motor, DC motor driver(L9110s),
   * Bluetooth Module(HC-06),
+  * IR sensor() X2,
+  * Ultra sonic sensor.
+  * Motor driver
 
 #### Software
  * Keil uVision, CMSIS, EC_HAL library
